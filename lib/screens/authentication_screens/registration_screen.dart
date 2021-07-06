@@ -1,5 +1,5 @@
 import 'package:diaspo_care/widgets/centered_button.dart';
-import 'package:diaspo_care/widgets/underlined_textfield.dart';
+import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +17,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController confirmPasswordTextEditingController;
 
   int radioValue;
+  double spacing = 10;
 
   String selectedCountry, selectedCurrency;
 
@@ -49,28 +50,43 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         padding: EdgeInsets.all(10),
         child: ListView(
           children: [
-            UnderlinedTextField(
+            SizedBox(height: spacing / 2),
+            RoundedTextField(
               controller: firstNameTextEditingController,
               hintText: 'First Name',
               onChanged: (value) => print('API guys to do things'),
               obscureText: false,
             ),
-            SizedBox(height: 20),
-            UnderlinedTextField(
+            SizedBox(height: spacing),
+            RoundedTextField(
               controller: lastNameTextEditingController,
               hintText: 'Last Name',
               onChanged: (value) => print('API guys to do things'),
               obscureText: false,
             ),
-            SizedBox(height: 20),
-            UnderlinedTextField(
+            SizedBox(height: spacing),
+            RoundedTextField(
               controller: emailTextEditingController,
               hintText: 'Email Address',
               onChanged: (value) => print('API guys to do things'),
               obscureText: false,
               keyboardType: TextInputType.emailAddress,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: spacing),
+            RoundedTextField(
+              controller: passwordTextEditingController,
+              hintText: 'Password',
+              onChanged: (value) => print('API guys to do things'),
+              obscureText: true,
+            ),
+            SizedBox(height: spacing),
+            RoundedTextField(
+              controller: confirmPasswordTextEditingController,
+              hintText: 'Confirm Password',
+              onChanged: (value) => print('API guys to do things'),
+              obscureText: true,
+            ),
+            SizedBox(height: spacing),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -134,14 +150,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ],
             ),
-            UnderlinedTextField(
+            SizedBox(height: spacing),
+            RoundedTextField(
               controller: phoneNumberTextEditingController,
               hintText: 'Phone Number',
               onChanged: (value) => print('API guys to do things'),
               obscureText: false,
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: spacing),
             Text('Gender'),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -176,21 +193,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            UnderlinedTextField(
-              controller: passwordTextEditingController,
-              hintText: 'Password',
-              onChanged: (value) => print('API guys to do things'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            UnderlinedTextField(
-              controller: confirmPasswordTextEditingController,
-              hintText: 'Confirm Password',
-              onChanged: (value) => print('API guys to do things'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
+            SizedBox(height: spacing),
             CenteredButton(
               size: size,
               label: "REGISTER",
