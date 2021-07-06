@@ -191,7 +191,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   SizedBox(height: spacing),
                   CenteredButton(
                     size: size,
-                    label: "Register",
+                    label: "REGISTER",
                     onPressed: () => print('API guys to do things'),
                   ),
                 ],
