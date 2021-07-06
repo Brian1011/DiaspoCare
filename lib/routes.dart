@@ -10,6 +10,7 @@ class RouteConfig {
   static final registration = "vendorRegistration";
   static final paymentRegistration = "paymentRegistration";
   static final beneficiaries = "beneficiaries";
+  static final paymentMethod = "paymentMethod";
 }
 
 var routes = {
@@ -18,4 +19,5 @@ var routes = {
   RouteConfig.registration: (context) => RegistrationScreen(),
   RouteConfig.paymentRegistration: (context) => PaymentMethodsScreen(),
   RouteConfig.beneficiaries: (context) => BeneficiariesScreen(),
+  RouteConfig.paymentMethod: (context) => PaymentMethodsScreen(),
 };
