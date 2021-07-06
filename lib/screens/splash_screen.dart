@@ -1,3 +1,4 @@
+import 'package:diaspo_care/data/db.dart';
 import 'package:flutter/material.dart';
 
 import '../routes.dart';
@@ -20,8 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void initDatabase() async {
-    //await db.init();
-    await Future.delayed(Duration(seconds: 1), navigate);
+    await db.init();
+    navigate();
   }
 
   @override

@@ -1,5 +1,5 @@
 import 'package:diaspo_care/widgets/centered_button.dart';
-import 'package:diaspo_care/widgets/rounded_textfield.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +9,6 @@ class PaymentMethodsScreen extends StatefulWidget {
 }
 
 class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
-
   int selectedRadioTile;
 
   @override
@@ -36,10 +35,13 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
         padding: EdgeInsets.all(10),
         child: ListView(
           children: [
-            Text('New Payment Method',style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.blue[900],
-            ),),
+            Text(
+              'New Payment Method',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.blue[900],
+              ),
+            ),
             RadioListTile(
               value: 1,
               groupValue: selectedRadioTile,
