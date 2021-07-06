@@ -1,3 +1,4 @@
+import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,6 +37,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           break;
       }
     });
+  }
+
+  void registerBtnFn() {
+    authService.signUp(
+      country: selectedCountry,
+      email: emailTextEditingController.text,
+      firstName: firstNameTextEditingController.text,
+      lastName: lastNameTextEditingController.text,
+      password: passwordTextEditingController.text,
+    );
   }
 
   @override

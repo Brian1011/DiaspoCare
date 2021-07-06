@@ -12,15 +12,23 @@ class AuthService extends ChangeNotifier {
     });
   }
 
+  bool _isSigningUp = false;
+  bool get isSigningUp => _isSigningUp;
+
+  set isSigningUp(bool val) {
+    _isSigningUp = val;
+    notifyListeners();
+  }
+
   Future signUp(
-      String email,
+      {String email,
       String firstName,
       String lastName,
       String middleName,
       DateTime dateOfBirth,
       String gender,
       String country,
-      String password) {
+      String password}) {
     var data = {
       "email": email,
       "first_name": firstName,
@@ -31,12 +39,14 @@ class AuthService extends ChangeNotifier {
       "country": country,
       "new_password": password,
     };
-
+    isSigningUp = true;
     return api.signUp(data).then((response) {
       var payload = response.data;
+      isSigningUp = false;
       return payload;
     }).catchError((error) {
       print('error occured during user sign up');
+      isSigningUp = false;
     });
   }
 }
