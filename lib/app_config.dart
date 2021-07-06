@@ -1,3 +1,4 @@
 class AppConfig {
-  static const appUrl = 'http://healthcare-financing.diaspocare.com/';
+  static const appUrl =
+      'http://healthcare-financing.diaspocare.com/api/method/';
 }
