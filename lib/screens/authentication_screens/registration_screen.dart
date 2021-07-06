@@ -1,26 +1,46 @@
+import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/underlined_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class VendorRegistrationScreen extends StatefulWidget {
+class RegistrationScreen extends StatefulWidget {
   @override
-  _VendorRegistrationScreenState createState() =>
-      _VendorRegistrationScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController firstNameTextEditingController;
   TextEditingController lastNameTextEditingController;
   TextEditingController emailTextEditingController;
   TextEditingController phoneNumberTextEditingController;
+  TextEditingController passwordTextEditingController;
+  TextEditingController confirmPasswordTextEditingController;
+
+  int radioValue;
 
   String selectedCountry, selectedCurrency;
 
   List<String> countries = ['Kenya', 'Tanzania', 'Ghana', 'Uganda', 'Nigeria'];
   List<String> currencies = ['KSH', 'TSH', 'GHS', 'UGH', 'Naira'];
 
+  void radioButtonHandler(int value) {
+    setState(() {
+      radioValue = value;
+      switch (radioValue) {
+        case 0:
+          radioValue = 0;
+          break;
+        case 1:
+          radioValue = 1;
+          break;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('New User'),
@@ -120,6 +140,61 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
               onChanged: (value) => print('API guys to do things'),
               obscureText: false,
               keyboardType: TextInputType.number,
+            ),
+            SizedBox(height: 20),
+            Text('Gender'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Radio(
+                  value: 0,
+                  groupValue: radioValue,
+                  onChanged: radioButtonHandler,
+                ),
+                GestureDetector(
+                  onTap: () => radioButtonHandler(0),
+                  child: Text(
+                    'Male',
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                Radio(
+                  value: 1,
+                  groupValue: radioValue,
+                  onChanged: radioButtonHandler,
+                ),
+                GestureDetector(
+                  onTap: () => radioButtonHandler(1),
+                  child: Text(
+                    'Female',
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            UnderlinedTextField(
+              controller: passwordTextEditingController,
+              hintText: 'Password',
+              onChanged: (value) => print('API guys to do things'),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            UnderlinedTextField(
+              controller: confirmPasswordTextEditingController,
+              hintText: 'Confirm Password',
+              onChanged: (value) => print('API guys to do things'),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            CenteredButton(
+              size: size,
+              label: "REGISTER",
+              onPressed: () => print('API guys to do things'),
             ),
           ],
         ),
