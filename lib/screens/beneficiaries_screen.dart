@@ -140,13 +140,19 @@ class TransactionsTab extends StatelessWidget {
                 Expanded(
                     flex: 2,
                     child: Text(
+                      'Trans ID',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                Expanded(
+                    flex: 2,
+                    child: Text(
                       'Beneficiaries',
                       style: TextStyle(color: Colors.white),
                     )),
                 Expanded(
                     flex: 2,
                     child: Text(
-                      'City',
+                      'Amount',
                       style: TextStyle(color: Colors.white),
                     )),
                 Expanded(
