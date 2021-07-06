@@ -1,7 +1,6 @@
 import 'package:diaspo_care/routes.dart';
-import 'package:diaspo_care/services/auth_service.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -11,8 +10,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.blue,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.light,
+    ));
+
     return MultiProvider(
-        providers: [ChangeNotifierProvider.value(value: authService)],
+        providers: [
+          // ChangeNotifierProvider.value(value: null)
+        ],
         child: MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
