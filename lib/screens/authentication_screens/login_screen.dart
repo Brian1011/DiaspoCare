@@ -86,13 +86,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.registration),
-                      child: Text('Supporter Registration'),
+                          context, RouteConfig.paymentMethod),
+                      child: Text('Payment Methode screen'),
                     ),
                     TextButton(
                       onPressed: () => Navigator.pushNamed(
                           context, RouteConfig.beneficiaries),
                       child: Text('Beneficiareis screen'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.accountDetails),
+                      child: Text('Account Details'),
                     ),
                   ],
                 ),
