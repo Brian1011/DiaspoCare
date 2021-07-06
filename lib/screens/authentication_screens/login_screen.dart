@@ -1,3 +1,5 @@
+import 'package:diaspo_care/routes.dart';
+import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/underlined_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -13,31 +15,68 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Form(
-          key: loginFormKey,
-          child: Expanded(
-            child: ListView(
-              children: [
-                Text('Welcome to DiaspoCare'),
-                SizedBox(height: 20),
-                UnderlinedTextField(
-                    controller: userNameTextEditingController,
-                    hintText: 'Username',
-                    onChanged: (value) => print('API guys to do things')),
-                SizedBox(height: 20),
-                UnderlinedTextField(
-                  controller: passwordTextEditingController,
-                  hintText: 'Password',
-                  onChanged: (value) => print('API guys to do things'),
-                  obscureText: true,
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Form(
+        key: loginFormKey,
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView(
+                  children: [
+                    SizedBox(height: size.height * 0.2),
+                    Text(
+                      'Welcome to DiaspoCare',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 20),
+                    UnderlinedTextField(
+                      controller: userNameTextEditingController,
+                      hintText: 'Username',
+                      onChanged: (value) => print('API guys to do things'),
+                      obscureText: false,
+                    ),
+                    SizedBox(height: 20),
+                    UnderlinedTextField(
+                      controller: passwordTextEditingController,
+                      hintText: 'Password',
+                      onChanged: (value) => print('API guys to do things'),
+                      obscureText: true,
+                    ),
+                    SizedBox(height: 20),
+                    CenteredButton(
+                      size: size,
+                      label: "LOGIN",
+                      onPressed: () => print('API guys to do things'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.vendorRegistration),
+                      child: Text('Vendor Registration'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        print('yow');
+                      },
+                      child: Text('Supporter Registration'),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        )
-      ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: Text(
+                'Diaspocare LLC',
+                style: TextStyle(color: Colors.grey),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

@@ -5,12 +5,14 @@ class UnderlinedTextField extends StatelessWidget {
       {@required this.controller,
       this.hintText,
       this.onChanged,
+      this.keyboardType,
       this.obscureText});
 
   final TextEditingController controller;
   final String hintText;
   final ValueChanged onChanged;
   final bool obscureText;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class UnderlinedTextField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(hintText: hintText),
+        keyboardType: keyboardType,
         onChanged: onChanged);
   }
 }
