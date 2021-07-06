@@ -203,8 +203,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   SizedBox(height: spacing),
                   CenteredButton(
                     size: size,
-                    label: "REGISTER",
                     onPressed: () => print('API guys to do things'),
+                    child: Text(
+                      'REGISTER',
+                      style: TextStyle(fontSize: 18.0, color: Colors.white),
+                    ),
                   ),
                 ],
               ),
