@@ -91,30 +91,39 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  child: DropdownButton<String>(
-                    focusColor: Colors.white,
-                    value: selectedCountry,
-                    style: TextStyle(color: Colors.white),
-                    iconEnabledColor: Colors.grey,
-                    items:
-                        countries.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      );
-                    }).toList(),
-                    hint: Text(
-                      "Country",
-                      style: TextStyle(color: Colors.black, fontSize: 14),
+                  child: Container(
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            width: 1.0,
+                            style: BorderStyle.solid,
+                            color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
                     ),
-                    onChanged: (String value) {
-                      setState(() {
-                        selectedCountry = value;
-                      });
-                    },
+                    child: DropdownButton<String>(
+                      value: selectedCountry,
+                      style: TextStyle(color: Colors.white),
+                      items: countries
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }).toList(),
+                      hint: Text(
+                        "Country",
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                      onChanged: (String value) {
+                        setState(() {
+                          selectedCountry = value;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(width: 40),
@@ -159,44 +168,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               keyboardType: TextInputType.number,
             ),
             SizedBox(height: spacing),
-            Text('Gender'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Radio(
-                  value: 0,
-                  groupValue: radioValue,
-                  onChanged: radioButtonHandler,
-                ),
-                GestureDetector(
-                  onTap: () => radioButtonHandler(0),
-                  child: Text(
-                    'Male',
-                    style: new TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-                Radio(
-                  value: 1,
-                  groupValue: radioValue,
-                  onChanged: radioButtonHandler,
-                ),
-                GestureDetector(
-                  onTap: () => radioButtonHandler(1),
-                  child: Text(
-                    'Female',
-                    style: new TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-              ],
+            RoundedTextField(
+              controller: phoneNumberTextEditingController,
+              hintText: 'Address',
+              onChanged: (value) => print('API guys to do things'),
+              obscureText: false,
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(height: spacing),
+            RoundedTextField(
+              controller: phoneNumberTextEditingController,
+              hintText: 'City',
+              onChanged: (value) => print('API guys to do things'),
+              obscureText: false,
+              keyboardType: TextInputType.number,
             ),
             SizedBox(height: spacing),
             CenteredButton(
               size: size,
-              label: "REGISTER",
+              label: "Save and Proceed",
               onPressed: () => print('API guys to do things'),
             ),
           ],
