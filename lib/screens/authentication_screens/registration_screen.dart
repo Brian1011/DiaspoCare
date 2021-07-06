@@ -39,6 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     });
   }
 
+// TODO: new ui has some missing variables;
   void registerBtnFn() {
     authService.signUp(
       country: selectedCountry,
