@@ -1,5 +1,4 @@
 import 'package:diaspo_care/widgets/centered_button.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -181,8 +180,11 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             SizedBox(height: spacing * 10),
             CenteredButton(
               size: size,
-              label: "Save and Proceed",
               onPressed: () => print('API guys to do things'),
+              child: Text(
+                'Proceed',
+                style: TextStyle(fontSize: 18.0, color: Colors.white),
+              ),
             ),
           ],
         ),

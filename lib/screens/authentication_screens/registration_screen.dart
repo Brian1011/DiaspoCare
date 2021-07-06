@@ -1,8 +1,10 @@
 import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
+import 'package:diaspo_care/widgets/circular_material_spinner.dart';
 import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -10,12 +12,15 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  TextEditingController firstNameTextEditingController;
-  TextEditingController lastNameTextEditingController;
-  TextEditingController emailTextEditingController;
-  TextEditingController phoneNumberTextEditingController;
-  TextEditingController passwordTextEditingController;
-  TextEditingController confirmPasswordTextEditingController;
+  TextEditingController firstNameTextEditingController =
+      TextEditingController();
+  TextEditingController lastNameTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController phoneNumberTextEditingController =
+      TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController confirmPasswordTextEditingController =
+      TextEditingController();
 
   int radioValue;
   double spacing = 10;
@@ -201,11 +206,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     keyboardType: TextInputType.text,
                   ),
                   SizedBox(height: spacing),
-                  CenteredButton(
-                    size: size,
-                    label: "REGISTER",
-                    onPressed: () => print('API guys to do things'),
-                  ),
+                  Selector<AuthService, bool>(
+                      selector: (context, authservice) =>
+                          authservice.isSigningUp,
+                      builder: (context, isSiginingUp, _) {
+                        return CenteredButton(
+                          size: size,
+                          onPressed: registerBtnFn,
+                          child: CircularMaterialSpinner(
+                            isBtn: true,
+                            loading: isSiginingUp,
+                            child: Text(
+                              'REGISTER',
+                              style: TextStyle(
+                                  fontSize: 18.0, color: Colors.white),
+                            ),
+                          ),
+                        );
+                      }),
                 ],
               ),
             ],
