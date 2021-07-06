@@ -20,9 +20,12 @@ class AuthUserModel {
     return AuthUserModel(
       email: email,
       name: json['full_name'],
-      supporters:
-          json['supporter'].map((supporter) => supporter['name']).toList(),
-      vendors: json['vendor'].map((vendor) => vendor['name']).toList(),
+      supporters: json['supporter']
+          .map<String>((supporter) => supporter['name'] as String)
+          .toList(),
+      vendors: json['vendor']
+          .map<String>((vendor) => vendor['name'] as String)
+          .toList(),
     );
   }
 }

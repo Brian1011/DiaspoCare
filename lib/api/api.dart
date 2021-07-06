@@ -5,8 +5,8 @@ class Api extends DioApi {
   Api() : super(AppConfig.appUrl);
 
   Future login(String email, String password) {
-    return dio.get('/method/hcfa_core.remote_procedures.users.login',
-        queryParameters: {'usr': email, 'pwd': password});
+    return dio.post('/method/hcfa_core.remote_procedures.users.login',
+        data: {'usr': email, 'pwd': password});
   }
 
   Future signUp(data) {
