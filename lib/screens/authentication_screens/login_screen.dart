@@ -1,5 +1,4 @@
 import 'package:diaspo_care/routes.dart';
-import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/underlined_textfield.dart';
 import 'package:flutter/material.dart';
@@ -11,19 +10,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  TextEditingController userNameTextEditingController = TextEditingController();
-  TextEditingController passwordTextEditingController = TextEditingController();
-
-  void loginSubmitFn() {
-    authService
-        .login(userNameTextEditingController.text,
-            passwordTextEditingController.text)
-        .then((value) {
-      if (value != null) {
-        print('User Succesfully Logged in');
-      }
-    });
-  }
+  TextEditingController userNameTextEditingController;
+  TextEditingController passwordTextEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 20),
                     CenteredButton(
                       size: size,
-                      label: "LOGIN",
-                      onPressed: loginSubmitFn,
+                      onPressed: () => print('API guys to do things'),
+                      child: Text(
+                        'LOGIN',
+                        style: TextStyle(fontSize: 18.0, color: Colors.white),
+                      ),
                     ),
                     TextButton(
                       onPressed: () => Navigator.pushNamed(
