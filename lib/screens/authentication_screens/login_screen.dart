@@ -79,6 +79,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           context, RouteConfig.beneficiaries),
                       child: Text('Beneficiareis screen'),
                     ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.addBeneficiaries),
+                      child: Text('Add Beneficiaries screen'),
+                    ),
                   ],
                 ),
               ),
