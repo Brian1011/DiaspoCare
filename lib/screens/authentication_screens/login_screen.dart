@@ -99,6 +99,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           context, RouteConfig.accountDetails),
                       child: Text('Account Details'),
                     ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.paymentHistory),
+                      child: Text('Payment History'),
+                    ),
                   ],
                 ),
               ),

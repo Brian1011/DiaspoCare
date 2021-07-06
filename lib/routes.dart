@@ -3,6 +3,7 @@ import 'package:diaspo_care/screens/authentication_screens/login_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/payment_methods_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/registration_screen.dart';
 import 'package:diaspo_care/screens/beneficiaries_screen.dart';
+import 'package:diaspo_care/screens/payment_history_screen.dart';
 import 'package:diaspo_care/screens/splash_screen.dart';
 
 class RouteConfig {
@@ -13,6 +14,7 @@ class RouteConfig {
   static final beneficiaries = "beneficiaries";
   static final paymentMethod = "paymentMethod";
   static final accountDetails = "accountDetails";
+  static final paymentHistory = "paymentHistory";
 }
 
 var routes = {
@@ -23,4 +25,5 @@ var routes = {
   RouteConfig.beneficiaries: (context) => BeneficiariesScreen(),
   RouteConfig.paymentMethod: (context) => PaymentMethodsScreen(),
   RouteConfig.accountDetails: (context) => AccountDetailsScreen(),
+  RouteConfig.paymentHistory: (context) => PaymentHistoryScreen(),
 };
