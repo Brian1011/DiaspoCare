@@ -20,6 +20,7 @@ class RoundedTextField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
+          isDense: true,
           labelText: hintText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
