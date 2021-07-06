@@ -10,12 +10,15 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  TextEditingController firstNameTextEditingController;
-  TextEditingController lastNameTextEditingController;
-  TextEditingController emailTextEditingController;
-  TextEditingController phoneNumberTextEditingController;
-  TextEditingController passwordTextEditingController;
-  TextEditingController confirmPasswordTextEditingController;
+  TextEditingController firstNameTextEditingController =
+      TextEditingController();
+  TextEditingController lastNameTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController phoneNumberTextEditingController =
+      TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController confirmPasswordTextEditingController =
+      TextEditingController();
 
   int radioValue;
   double spacing = 10;
@@ -204,7 +207,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   CenteredButton(
                     size: size,
                     label: "REGISTER",
-                    onPressed: () => print('API guys to do things'),
+                    onPressed: registerBtnFn,
                   ),
                 ],
               ),

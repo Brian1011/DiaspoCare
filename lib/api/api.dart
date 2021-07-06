@@ -12,7 +12,7 @@ class Api extends DioApi {
   Future signUp(data) {
     return dio.post(
         '/method/hcfa_core.remote_procedures.users.create_diaspocare_account',
-        queryParameters: data);
+        data: data);
   }
 
   Future getCountries() {
