@@ -156,9 +156,9 @@ class TransactionsTab extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     )),
                 Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: Text(
-                      'Approval',
+                      'Status',
                       style: TextStyle(color: Colors.white),
                     )),
               ],
@@ -180,9 +180,10 @@ class TransactionsTab extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Expanded(flex: 2, child: Text('First lastname')),
-                      Expanded(flex: 2, child: Text('Nairobi')),
-                      Expanded(flex: 2, child: Text('Credit')),
+                      Expanded(flex: 2, child: Text('121234567')),
+                      Expanded(flex: 2, child: Text('Jonte Omondi')),
+                      Expanded(flex: 2, child: Text('12,000.00')),
+                      Expanded(flex: 1, child: Text('New')),
                     ],
                   ),
                 );
