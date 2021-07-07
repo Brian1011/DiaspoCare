@@ -5,6 +5,7 @@ import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class AddBeneficiariesScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   TextEditingController lastNameTextEditingController;
   TextEditingController middleTextEditingController;
   TextEditingController relationTextEditingController;
+  DateTime pickedDate;
 
   int radioValue;
   double spacing = 10;
@@ -58,6 +60,20 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
     setState(() {
       selectedRadioTile = val;
     });
+  }
+
+  pickDateOfBirth() async {
+    pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(Duration(days: 36500)),
+      lastDate: DateTime.now().subtract(Duration(days: 3650)),
+    );
+    if (pickedDate != null) {
+      // appointmentDateCtrl.text = "${formatDate(pickedDate, "MMM d, yyyy")}";
+      DateFormat format = DateFormat('yyyy-mm-dd');
+      var data = format.format(pickedDate);
+    }
   }
 
 // TODO: new ui has some missing variables;
@@ -109,11 +125,16 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 SizedBox(height: spacing),
-                RoundedTextField(
-                  controller: middleTextEditingController,
-                  hintText: 'Date of birth',
-                  onChanged: (value) => print('API guys to do things'),
-                  obscureText: false,
+                GestureDetector(
+                  onTap: pickDateOfBirth,
+                  child: AbsorbPointer(
+                    child: RoundedTextField(
+                      controller: middleTextEditingController,
+                      hintText: 'Date of birth',
+                      onChanged: (value) => print('API guys to do things'),
+                      obscureText: false,
+                    ),
+                  ),
                 ),
                 SizedBox(height: spacing),
                 Row(
@@ -174,7 +195,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                   items: countryService.countries
                                       .map<DropdownMenuItem<String>>((country) {
                                     return DropdownMenuItem<String>(
-                                      value: country?.name ?? '',
+                                      value: country?.code ?? '',
                                       child: Text(
                                         country?.name ?? '',
                                         style: TextStyle(color: Colors.black),

@@ -22,6 +22,11 @@ class Api extends DioApi {
   Future getBeneficiaryRelation() {
     return dio.get('/resource/SupporterBeneficiaryRelation');
   }
+
+  Future getBeneficiaryList() {
+    return dio.get(
+        '/method/hcfa_core.remote_procedures.beneficiaries.get_beneficiaries');
+  }
 }
 
 Api api = Api();
