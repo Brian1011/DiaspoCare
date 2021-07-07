@@ -83,7 +83,7 @@ class _PharmacyRegistrationScreenState extends State<PharmacyRegistrationScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Beneficiaries'),
+        title: Text('Pharmacy Registration'),
         actions: [
           IconButton(icon: Icon(Icons.refresh), onPressed: refresh),
         ],

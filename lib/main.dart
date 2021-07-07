@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            initialRoute: RouteConfig.splash,
+            initialRoute: RouteConfig.pharmacyBankDetails,
             routes: routes));
   }
 }
