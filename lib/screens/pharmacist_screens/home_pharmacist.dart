@@ -31,7 +31,7 @@ class _HomePharmacistState extends State<HomePharmacist> {
                         SizedBox(height: 10),
                         Image.asset(
                           'assets/DC_Logo_name.png',
-                          width: size.width * 0.7,
+                          width: size.width * 0.70,
                         ),
                         SizedBox(height: 20),
                         Text('Welcome'),
