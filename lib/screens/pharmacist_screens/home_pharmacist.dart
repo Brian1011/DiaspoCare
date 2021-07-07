@@ -60,7 +60,7 @@ class _HomePharmacistState extends State<HomePharmacist> {
                           label: 'Beneficiaries',
                           iconData: Icons.people_alt_outlined,
                           onTap: () => Navigator.pushNamed(
-                              context, RouteConfig.pharmacistBeneficiaries)),
+                              context, RouteConfig.beneficiaries)),
                       borderedContainer(
                           size: size,
                           label: 'Transactions',

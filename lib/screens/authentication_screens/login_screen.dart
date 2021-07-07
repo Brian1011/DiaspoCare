@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
             passwordTextEditingController.text)
         .then((value) {
       if (value != null) {
-        Navigator.popAndPushNamed(context, RouteConfig.supporterHome);
+        Navigator.popAndPushNamed(context, RouteConfig.homePharmacist);
       }
     });
   }

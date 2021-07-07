@@ -4,12 +4,12 @@ import 'package:diaspo_care/widgets/circular_material_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SupporterHomeScreen extends StatefulWidget {
+class BeneficiariesScreen extends StatefulWidget {
   @override
-  _SupporterHomeScreenState createState() => _SupporterHomeScreenState();
+  _BeneficiariesScreenState createState() => _BeneficiariesScreenState();
 }
 
-class _SupporterHomeScreenState extends State<SupporterHomeScreen> {
+class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
   @override
   void initState() {
     super.initState();
