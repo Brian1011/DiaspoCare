@@ -91,13 +91,13 @@ class BeneficiariesTab extends StatelessWidget {
                 Expanded(
                     flex: 2,
                     child: Text(
-                      'City',
+                      'Supporter',
                       style: TextStyle(color: Colors.white),
                     )),
                 Expanded(
                     flex: 2,
                     child: Text(
-                      'Approval',
+                      'Relation',
                       style: TextStyle(color: Colors.white),
                     )),
               ],
