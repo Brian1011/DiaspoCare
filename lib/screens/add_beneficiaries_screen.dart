@@ -123,7 +123,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
         "middle_name": middleTextEditingController.text,
         "date_of_birth": dateOfBirthController.text,
         "gender": genderController.text,
-        "country": countryController.text,
+        "country": selectedCountry,
         "relation": selectedRelation
       };
 
@@ -134,6 +134,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
         print(value);
         Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
       }).catchError((error) {
+        Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
         print('******************ERROR');
         print(error);
       });

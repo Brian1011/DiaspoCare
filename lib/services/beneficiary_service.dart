@@ -57,9 +57,9 @@ class BeneficiaryService extends ChangeNotifier {
     isLoadingRelation = false;
   }
 
-  Future loadBeneficiaries() {
+  Future loadBeneficiaries() async {
     _isLoadingBeneficiariesList = true;
-    return api.getBeneficiaryList().then((response) {
+    return await api.getBeneficiaryList().then((response) {
       var payload = response.data["message"];
       _saveBeneficiaries(payload);
     }).catchError((error) {
@@ -69,6 +69,7 @@ class BeneficiaryService extends ChangeNotifier {
           msg: "Can't load beneficiaries list",
           backgroundColor: Colors.black,
           textColor: Colors.white);
+      return throw error;
     });
   }
 
@@ -80,9 +81,9 @@ class BeneficiaryService extends ChangeNotifier {
     _isLoadingBeneficiariesList = false;
   }
 
-  Future addNewBeneficiary({var data}) {
+  Future addNewBeneficiary({var data}) async {
     _isLoadingBeneficiaryAdd = true;
-    return api.saveBeneficiary(data: data).then((response) {
+    return await api.saveBeneficiary(data: data).then((response) {
       Fluttertoast.showToast(
           msg: "Beneficiary added successfully",
           backgroundColor: Colors.black,
@@ -100,4 +101,4 @@ class BeneficiaryService extends ChangeNotifier {
   }
 }
 
-var beneficiaryService = BeneficiaryService();
+BeneficiaryService beneficiaryService = BeneficiaryService();
