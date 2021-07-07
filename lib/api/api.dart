@@ -18,6 +18,10 @@ class Api extends DioApi {
   Future getCountries() {
     return dio.get('/resource/Country');
   }
+
+  Future getBeneficiaryRelation() {
+    return dio.get('/resource/SupporterBeneficiaryRelation');
+  }
 }
 
 Api api = Api();
