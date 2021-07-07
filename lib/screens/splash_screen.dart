@@ -34,8 +34,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffffffff),
       body: Center(
-        child: Text('Splash Screen'),
+        child: Image.asset(
+          'assets/DC_logo_small.jpg',
+          width: 200,
+        ),
       ),
     );
   }
