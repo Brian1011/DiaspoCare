@@ -1,3 +1,4 @@
+import 'package:diaspo_care/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,9 @@ class _HomePharmacistState extends State<HomePharmacist> {
                       borderedContainer(
                           size: size,
                           label: 'Beneficiaries',
-                          iconData: Icons.people_alt_outlined),
+                          iconData: Icons.people_alt_outlined,
+                          onTap: () => Navigator.pushNamed(
+                              context, RouteConfig.beneficiaries)),
                       borderedContainer(
                           size: size,
                           label: 'Transactions',
@@ -122,11 +125,9 @@ class _HomePharmacistState extends State<HomePharmacist> {
   }
 
   GestureDetector borderedContainer(
-      {String label, IconData iconData, Size size}) {
+      {String label, IconData iconData, Size size, Function onTap}) {
     return GestureDetector(
-      onTap: () {
-        print('do something');
-      },
+      onTap: onTap,
       child: Container(
         width: size.width * 0.35,
         decoration: BoxDecoration(

@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
             passwordTextEditingController.text)
         .then((value) {
       if (value != null) {
-        print('User Succesfully Logged in');
+        Navigator.popAndPushNamed(context, RouteConfig.homePharmacist);
       }
     });
   }
@@ -88,11 +88,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () => Navigator.pushNamed(
                           context, RouteConfig.paymentMethod),
                       child: Text('Payment Method screen'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.beneficiaries),
-                      child: Text('Beneficiaries screen'),
                     ),
                     TextButton(
                       onPressed: () => Navigator.pushNamed(
