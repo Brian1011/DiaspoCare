@@ -3,7 +3,6 @@ import 'package:diaspo_care/screens/add_beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/login_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/payment_methods_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/registration_screen.dart';
-import 'package:diaspo_care/screens/beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/payment_history_screen.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/add_contact_details.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/home_pharmacist.dart';
@@ -11,6 +10,7 @@ import 'package:diaspo_care/screens/pharmacist_screens/pharmacist_beneficiaries_
 import 'package:diaspo_care/screens/pharmacist_screens/add_phar_bank_details.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/pharmarcy_registration_screen.dart';
 import 'package:diaspo_care/screens/splash_screen.dart';
+import 'package:diaspo_care/screens/supporter_screens/beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/transaction_details_screen.dart';
 
 class RouteConfig {
