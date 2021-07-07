@@ -109,6 +109,13 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 SizedBox(height: spacing),
+                RoundedTextField(
+                  controller: middleTextEditingController,
+                  hintText: 'Date of birth',
+                  onChanged: (value) => print('API guys to do things'),
+                  obscureText: false,
+                ),
+                SizedBox(height: spacing),
                 Row(
                   children: [
                     Expanded(

@@ -1,12 +1,14 @@
 import 'package:diaspo_care/api/api.dart';
 import 'package:diaspo_care/data/db.dart';
 import 'package:diaspo_care/data/models/auth_user_model.dart';
-
+import 'package:diaspo_care/data/models/cookie_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class AuthService extends ChangeNotifier {
   bool _isLoggingIn = false;
   bool get isLoggingIn => _isLoggingIn;
+  CookieModel get userCookie => db.cookieBox.values.first;
+  bool get cookieExist => db.cookieBox.isNotEmpty;
 
   set isLoggingIn(bool val) {
     _isLoggingIn = val;
@@ -16,6 +18,9 @@ class AuthService extends ChangeNotifier {
   Future login(String email, String password) {
     isLoggingIn = true;
     return api.login(email, password).then((response) {
+      print('*************************RESPONSE*******************************');
+      print(response);
+      print('*************************RESPONSE*******************************');
       var payload = response.data;
       _saveLoginData(email, payload);
       return payload;
@@ -66,6 +71,15 @@ class AuthService extends ChangeNotifier {
       print('error occured during user sign up');
       isSigningUp = false;
     });
+  }
+
+  setCookie(var cookies) {
+    db.cookieBox.add(CookieModel(cookie: cookies));
+    notifyListeners();
+  }
+
+  clearCookie() {
+    db.cookieBox.clear();
   }
 }
 
