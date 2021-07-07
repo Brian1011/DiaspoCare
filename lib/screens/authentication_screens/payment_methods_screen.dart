@@ -2,6 +2,8 @@ import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../routes.dart';
+
 class PaymentMethodsScreen extends StatefulWidget {
   @override
   _PaymentMethodsScreenState createState() => _PaymentMethodsScreenState();
@@ -21,6 +23,10 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
     setState(() {
       selectedRadioTile = val;
     });
+  }
+
+  openBeneficiary() {
+    Navigator.pushReplacementNamed(context, RouteConfig.addBeneficiary);
   }
 
   @override
@@ -180,7 +186,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             SizedBox(height: spacing * 10),
             CenteredButton(
               size: size,
-              onPressed: () => print('API guys to do things'),
+              onPressed: openBeneficiary,
               child: Text(
                 'Proceed',
                 style: TextStyle(fontSize: 18.0, color: Colors.white),

@@ -1,6 +1,8 @@
 import 'package:diaspo_care/api/api.dart';
 import 'package:diaspo_care/data/models/relation_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BeneficiaryService extends ChangeNotifier {
   bool _isLoadingRelation = false;
@@ -19,8 +21,12 @@ class BeneficiaryService extends ChangeNotifier {
       var payload = response.data;
       _saveRelations(payload['data']);
     }).catchError((error) {
-      print('error occured while loading errors $error');
-      isLoadingRelation = true;
+      print('error while loading errors $error');
+      Fluttertoast.showToast(
+          msg: "Can't load beneficiary relations",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
+      isLoadingRelation = false;
     });
   }
 
@@ -29,6 +35,7 @@ class BeneficiaryService extends ChangeNotifier {
     payload.forEach((relation) {
       relations.add(BeneficiaryRelation.fromJson(relation));
     });
+    isLoadingRelation = false;
   }
 }
 

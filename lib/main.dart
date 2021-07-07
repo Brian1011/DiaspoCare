@@ -1,5 +1,7 @@
 import 'package:diaspo_care/routes.dart';
 import 'package:diaspo_care/services/auth_service.dart';
+import 'package:diaspo_care/services/beneficiary_service.dart';
+import 'package:diaspo_care/services/country_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,11 @@ class MyApp extends StatelessWidget {
     ));
 
     return MultiProvider(
-        providers: [ChangeNotifierProvider.value(value: authService)],
+        providers: [
+          ChangeNotifierProvider.value(value: authService),
+          ChangeNotifierProvider.value(value: countryService),
+          ChangeNotifierProvider.value(value: beneficiaryService)
+        ],
         child: MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(

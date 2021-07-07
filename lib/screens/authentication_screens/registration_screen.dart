@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../routes.dart';
+
 class RegistrationScreen extends StatefulWidget {
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
@@ -45,14 +47,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
 // TODO: new ui has some missing variables;
-  void registerBtnFn() {
-    authService.signUp(
+  registerBtnFn() async {
+    await authService
+        .signUp(
       country: selectedCountry,
       email: emailTextEditingController.text,
       firstName: firstNameTextEditingController.text,
       lastName: lastNameTextEditingController.text,
       password: passwordTextEditingController.text,
-    );
+    )
+        .then((response) {
+      Navigator.pushReplacementNamed(context, RouteConfig.addBeneficiary);
+    });
+    // Navigator.pushReplacementNamed(context, RouteConfig.addPayment);
+
+    // save step
   }
 
   @override

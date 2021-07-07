@@ -1,6 +1,8 @@
 import 'package:diaspo_care/api/api.dart';
 import 'package:diaspo_care/data/models/country_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CountryService extends ChangeNotifier {
   bool _isGettingCountries = false;
@@ -18,7 +20,10 @@ class CountryService extends ChangeNotifier {
       var payload = response.data;
       _saveCountries(payload['data']);
     }).catchError((error) {
-      print('error occured while loading errors $error');
+      Fluttertoast.showToast(
+          msg: "Can't load countries",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
       isGettingCountries = false;
     });
   }
