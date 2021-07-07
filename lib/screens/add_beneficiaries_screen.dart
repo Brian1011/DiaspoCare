@@ -5,6 +5,7 @@ import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,11 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   TextEditingController lastNameTextEditingController;
   TextEditingController middleTextEditingController;
   TextEditingController relationTextEditingController;
+  TextEditingController dateOfBirthController;
+  TextEditingController genderController;
+  TextEditingController countryController;
   DateTime pickedDate;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   int radioValue;
   double spacing = 10;
@@ -50,7 +55,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   void initState() {
     super.initState();
     refresh();
-    selectedRadioTile = 0;
+    selectedRadioTile = 1;
   }
 
   refresh() {
@@ -61,6 +66,11 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   setSelectedRadioTile(int val) {
     setState(() {
       selectedRadioTile = val;
+      if (val == 1) {
+        genderController.text = "male";
+      } else {
+        genderController.text = "female";
+      }
     });
   }
 
@@ -73,27 +83,56 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
     );
     if (pickedDate != null) {
       // appointmentDateCtrl.text = "${formatDate(pickedDate, "MMM d, yyyy")}";
-      DateFormat format = DateFormat('yyyy-mm-dd');
-      var data = format.format(pickedDate);
+      setState(() {
+        DateFormat format = DateFormat('yyyy-mm-dd');
+        var data = format.format(pickedDate);
+        dateOfBirthController.text = data;
+      });
+    }
+  }
+
+  bool validateForm() {
+    if (formKey.currentState.validate()) {
+      return true;
+    } else {
+      Fluttertoast.showToast(
+          msg: "Check your form input for errors",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
+      return false;
     }
   }
 
   submitBeneficiary() async {
-    var data = {
-      "first_name": "johm",
-      "last_name": "linda",
-      "middle_name": "tess",
-      "date_of_birth": "1998-07-23",
-      "gender": "male",
-      "country": "KEN",
-      "relation": "child"
-    };
+    if (validateForm()) {
+      /*var data = {
+        "first_name": "johm",
+        "last_name": "linda",
+        "middle_name": "tess",
+        "date_of_birth": "1998-07-23",
+        "gender": "male",
+        "country": "KEN",
+        "relation": "child"
+      };*/
 
-    await beneficiaryService.addNewBeneficiary(data: data).then((value) {
-      Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
-    }).catchError((error) {
-      print(error);
-    });
+      var data = {
+        "first_name": firstNameTextEditingController.text,
+        "last_name": lastNameTextEditingController.text,
+        "middle_name": middleTextEditingController.text,
+        "date_of_birth": dateOfBirthController.text,
+        "gender": genderController.text,
+        "country": countryController.text,
+        "relation": relationTextEditingController.text
+      };
+
+      print(data);
+
+      await beneficiaryService.addNewBeneficiary(data: data).then((value) {
+        Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
+      }).catchError((error) {
+        print(error);
+      });
+    }
   }
 
 // TODO: new ui has some missing variables;
@@ -126,23 +165,38 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                 RoundedTextField(
                   controller: firstNameTextEditingController,
                   hintText: 'First Name',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "First name is required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 RoundedTextField(
                   controller: middleTextEditingController,
                   hintText: 'Middle Name',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Middle name is required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 RoundedTextField(
                   controller: lastNameTextEditingController,
                   hintText: 'Last Name',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
-                  keyboardType: TextInputType.emailAddress,
+                  //keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Last name is required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 GestureDetector(
@@ -151,8 +205,13 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                     child: RoundedTextField(
                       controller: middleTextEditingController,
                       hintText: 'Date of birth',
-                      onChanged: (value) => print('API guys to do things'),
                       obscureText: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Date of birth is required";
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ),
@@ -215,7 +274,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                   items: countryService.countries
                                       .map<DropdownMenuItem<String>>((country) {
                                     return DropdownMenuItem<String>(
-                                      value: country?.code ?? '',
+                                      value: country?.name ?? '',
                                       child: Text(
                                         country?.name ?? '',
                                         style: TextStyle(color: Colors.black),

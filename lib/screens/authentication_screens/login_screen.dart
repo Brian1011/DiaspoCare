@@ -109,6 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           context, RouteConfig.paymentHistory),
                       child: Text('Payment History'),
                     ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.homePharmacist),
+                      child: Text('Home pharmacist'),
+                    ),
                   ],
                 ),
               ),

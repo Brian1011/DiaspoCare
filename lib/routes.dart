@@ -5,6 +5,7 @@ import 'package:diaspo_care/screens/authentication_screens/payment_methods_scree
 import 'package:diaspo_care/screens/authentication_screens/registration_screen.dart';
 import 'package:diaspo_care/screens/beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/payment_history_screen.dart';
+import 'package:diaspo_care/screens/pharmacist_screens/home_pharmacist.dart';
 import 'package:diaspo_care/screens/splash_screen.dart';
 import 'package:diaspo_care/screens/transaction_details_screen.dart';
 
@@ -20,6 +21,7 @@ class RouteConfig {
   static final transactionDetail = "transactionDetail";
   static final addPayment = "addPayment";
   static final addBeneficiary = "addBeneficiary";
+  static final homePharmacist = "homePharmacist";
 }
 
 var routes = {
@@ -34,4 +36,5 @@ var routes = {
   RouteConfig.transactionDetail: (context) => TransactionDetailScreen(),
   RouteConfig.addPayment: (context) => PaymentMethodsScreen(),
   RouteConfig.addBeneficiary: (context) => AddBeneficiariesScreen(),
+  RouteConfig.homePharmacist: (context) => HomePharmacist(),
 };
