@@ -94,15 +94,17 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   }
 
   bool validateForm() {
-    if (formKey.currentState.validate()) {
-      return true;
-    } else {
-      Fluttertoast.showToast(
-          msg: "Check your form input for errors",
-          backgroundColor: Colors.black,
-          textColor: Colors.white);
-      return false;
-    }
+    // if (formKey.currentState.validate()) {
+    //   return true;
+    // } else {
+    //   Fluttertoast.showToast(
+    //       msg: "Check your form input for errors",
+    //       backgroundColor: Colors.black,
+    //       textColor: Colors.white);
+    //   return false;
+    // }
+
+    return true;
   }
 
   submitBeneficiary() async {
@@ -368,6 +370,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                   selector: (context, beneficiaryService) =>
                       beneficiaryService.isLoadingBeneficiaryAdd,
                   builder: (context, isLoadingBeneficiaryAdd, _) {
+                    print('beneficiary changed $isLoadingBeneficiaryAdd');
                     return CenteredButton(
                       size: size,
                       onPressed: submitBeneficiary,

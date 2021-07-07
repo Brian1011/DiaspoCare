@@ -30,15 +30,12 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
             title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: Colors.blue,
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-<<<<<<< HEAD
-            initialRoute: RouteConfig.login,
-=======
             initialRoute: RouteConfig.splash,
->>>>>>> 7b4b6c5ee6912c750742128357b5b2cbc8d0bb08
             routes: routes));
   }
 }

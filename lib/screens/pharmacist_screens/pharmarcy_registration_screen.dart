@@ -10,10 +10,12 @@ import 'package:provider/provider.dart';
 
 class PharmacyRegistrationScreen extends StatefulWidget {
   @override
-  _PharmacyRegistrationScreenState createState() => _PharmacyRegistrationScreenState();
+  _PharmacyRegistrationScreenState createState() =>
+      _PharmacyRegistrationScreenState();
 }
 
-class _PharmacyRegistrationScreenState extends State<PharmacyRegistrationScreen> {
+class _PharmacyRegistrationScreenState
+    extends State<PharmacyRegistrationScreen> {
   TextEditingController pharmacyNameTextEditingController;
   TextEditingController pharmacyRegNumberTextEditingController;
   TextEditingController pharmacyRegEmailTextEditingController;
@@ -26,7 +28,7 @@ class _PharmacyRegistrationScreenState extends State<PharmacyRegistrationScreen>
   String selectedCountry, selectedCity, selectedPharmacy;
 
   List<String> countries = ['Kenya', 'Tanzania', 'Ghana', 'Uganda', 'Nigeria'];
-  List<String> city = ['Nairobi', 'Dodoma', 'Accra', 'Kampala','Lagos'];
+  List<String> city = ['Nairobi', 'Dodoma', 'Accra', 'Kampala', 'Lagos'];
   List<String> parentPharmacies = ['Pharmacy 1', 'Pharmacy 2', 'Pharmacy 3'];
 
   void radioButtonHandler(int value) {
@@ -99,6 +101,7 @@ class _PharmacyRegistrationScreenState extends State<PharmacyRegistrationScreen>
                     Text('Is a branch'),
                     Checkbox(
                       value: false,
+                      onChanged: (val) {},
                     ),
                   ],
                 ),
@@ -108,20 +111,18 @@ class _PharmacyRegistrationScreenState extends State<PharmacyRegistrationScreen>
                     value: selectedPharmacy,
                     style: TextStyle(color: Colors.white),
                     items: parentPharmacies
-                        .map<DropdownMenuItem<String>>(
-                            (String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          );
-                        }).toList(),
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      );
+                    }).toList(),
                     hint: Text(
                       "Parent Pharmacy",
-                      style: TextStyle(
-                          color: Colors.black, fontSize: 14),
+                      style: TextStyle(color: Colors.black, fontSize: 14),
                     ),
                     onChanged: (String value) {
                       setState(() {
@@ -156,111 +157,110 @@ class _PharmacyRegistrationScreenState extends State<PharmacyRegistrationScreen>
                   children: [
                     Expanded(
                         child: Selector<CountryService, bool>(
-                          selector: (context, countryService) =>
+                      selector: (context, countryService) =>
                           countryService.isGettingCountries,
-                          builder: (context, _loading, _) {
-                            return Column(
-                              children: [
-                                Container(
-                                  decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          width: 1.0,
-                                          style: BorderStyle.solid,
-                                          color: Colors.grey),
-                                      borderRadius:
+                      builder: (context, _loading, _) {
+                        return Column(
+                          children: [
+                            Container(
+                              decoration: ShapeDecoration(
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      width: 1.0,
+                                      style: BorderStyle.solid,
+                                      color: Colors.grey),
+                                  borderRadius:
                                       BorderRadius.all(Radius.circular(5)),
-                                    ),
-                                  ),
-                                  width: double.infinity,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 4),
-                                    child: DropdownButton<String>(
-                                      value: selectedCountry,
-                                      style: TextStyle(color: Colors.white),
-                                      items: countries
-                                          .map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(
-                                                value,
-                                                style: TextStyle(color: Colors.black),
-                                              ),
-                                            );
-                                          }).toList(),
-                                      hint: Text(
-                                        "Country",
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 14),
-                                      ),
-                                      onChanged: (String value) {
-                                        setState(() {
-                                          selectedCountry = value;
-                                        });
-                                      },
-                                    ),
-                                  ),
                                 ),
-                                if (_loading) LinearProgressIndicator()
-                              ],
-                            );
-                          },
-                        )),
+                              ),
+                              width: double.infinity,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 4),
+                                child: DropdownButton<String>(
+                                  value: selectedCountry,
+                                  style: TextStyle(color: Colors.white),
+                                  items: countries
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  hint: Text(
+                                    "Country",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                  onChanged: (String value) {
+                                    setState(() {
+                                      selectedCountry = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            if (_loading) LinearProgressIndicator()
+                          ],
+                        );
+                      },
+                    )),
                     SizedBox(width: 40),
                     Expanded(
-                        child: Selector<BeneficiaryService, bool>(
-                          selector: (context, beneficiaryService) =>
-                          beneficiaryService.isLoadingRelation,
-                          builder: (context, _loading, _) {
-                            return Column(
-                              children: [
-                                Container(
-                                  decoration: ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          width: 1.0,
-                                          style: BorderStyle.solid,
-                                          color: Colors.grey),
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                    ),
-                                  ),
-                                  width: double.infinity,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 4),
-                                    child: DropdownButton<String>(
-                                      value: selectedCity,
-                                      style: TextStyle(color: Colors.white),
-                                      items: city
-                                          .map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(
-                                                value,
-                                                style: TextStyle(color: Colors.black),
-                                              ),
-                                            );
-                                          }).toList(),
-                                      hint: Text(
-                                        "City",
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 14),
-                                      ),
-                                      onChanged: (String value) {
-                                        setState(() {
-                                          selectedCity = value;
-                                        });
-                                      },
-                                    ),
+                      child: Selector<BeneficiaryService, bool>(
+                        selector: (context, beneficiaryService) =>
+                            beneficiaryService.isLoadingRelation,
+                        builder: (context, _loading, _) {
+                          return Column(
+                            children: [
+                              Container(
+                                decoration: ShapeDecoration(
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        width: 1.0,
+                                        style: BorderStyle.solid,
+                                        color: Colors.grey),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5)),
                                   ),
                                 ),
-                                if (_loading) LinearProgressIndicator()
-                              ],
-                            );
-                          },
-                        ),
+                                width: double.infinity,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
+                                  child: DropdownButton<String>(
+                                    value: selectedCity,
+                                    style: TextStyle(color: Colors.white),
+                                    items: city.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(
+                                          value,
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    hint: Text(
+                                      "City",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                    onChanged: (String value) {
+                                      setState(() {
+                                        selectedCity = value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              if (_loading) LinearProgressIndicator()
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
