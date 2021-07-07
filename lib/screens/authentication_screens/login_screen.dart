@@ -40,7 +40,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.all(10),
                 child: ListView(
                   children: [
-                    SizedBox(height: size.height * 0.2),
+                    SizedBox(height: size.height * 0.08),
+                    Image.asset(
+                      'assets/DC_Logo_name.png',
+                      height: 150,
+                    ),
+                    SizedBox(height: 20),
                     Text(
                       'Welcome to DiaspoCare',
                       style:
@@ -79,56 +84,56 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         }),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.registration),
-                      child: Text('Vendor Registration'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.paymentMethod),
-                      child: Text('Payment Method screen'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.transactionDetail),
-                      child: Text('Transaction Details'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.accountDetails),
-                      child: Text('Account Details'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.paymentHistory),
-                      child: Text('Payment History'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.homePharmacist),
-                      child: Text('Home pharmacist'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.addBeneficiary),
-                      child: Text('Add Beneficiaries'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.registerPharmacy),
-                      child: Text('Register Pharmacy'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.addPharBankDetails),
-                      child: Text('Add Pharmacy Bank'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.addPharContactDetails),
-                      child: Text('Add Pharmacy Contact Details'),
-                    ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.registration),
+                    //   child: Text('Vendor Registration'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.paymentMethod),
+                    //   child: Text('Payment Method screen'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.transactionDetail),
+                    //   child: Text('Transaction Details'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.accountDetails),
+                    //   child: Text('Account Details'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.paymentHistory),
+                    //   child: Text('Payment History'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.homePharmacist),
+                    //   child: Text('Home pharmacist'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.addBeneficiary),
+                    //   child: Text('Add Beneficiaries'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.registerPharmacy),
+                    //   child: Text('Register Pharmacy'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.addPharBankDetails),
+                    //   child: Text('Add Pharmacy Bank'),
+                    // ),
+                    // TextButton(
+                    //   onPressed: () => Navigator.pushNamed(
+                    //       context, RouteConfig.addPharContactDetails),
+                    //   child: Text('Add Pharmacy Contact Details'),
+                    // ),
                   ],
                 ),
               ),
