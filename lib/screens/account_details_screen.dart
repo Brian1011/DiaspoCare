@@ -40,9 +40,15 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                         onPressed: () => print('go to screen'),
                         child: Text('EDIT PROFILE'),
                       ),
-                      Text(
-                        '  SIGN OUT',
-                        style: TextStyle(color: Colors.red),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushReplacementNamed(RouteConfig.login);
+                        },
+                        child: Text(
+                          '  SIGN OUT',
+                          style: TextStyle(color: Colors.red),
+                        ),
                       ),
                     ],
                   )

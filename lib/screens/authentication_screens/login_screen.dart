@@ -84,11 +84,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         }),
-                    // TextButton(
-                    //   onPressed: () => Navigator.pushNamed(
-                    //       context, RouteConfig.registration),
-                    //   child: Text('Vendor Registration'),
-                    // ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.registration),
+                      child: Text('Supporter Registration'),
+                    ),
                     // TextButton(
                     //   onPressed: () => Navigator.pushNamed(
                     //       context, RouteConfig.paymentMethod),
