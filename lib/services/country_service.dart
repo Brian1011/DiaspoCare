@@ -29,6 +29,7 @@ class CountryService extends ChangeNotifier {
   }
 
   void _saveCountries(payload) {
+    countries = [];
     payload.forEach((country) {
       countries.add(CountryModel.fromMap(country));
     });

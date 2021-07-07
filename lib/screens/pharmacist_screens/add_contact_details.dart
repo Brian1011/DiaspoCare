@@ -89,10 +89,15 @@ class _AddContactDetailsState extends State<AddContactDetails> {
                 SizedBox(height: spacing / 2),
                 Text('Alternative Contact 1', style: TextStyle(fontWeight: FontWeight.bold),),
                 UnderlinedTextField(
-                  controller: pharmacyNameTextEditingController,
-                  hintText: 'Pharmacy Name',
-                  onChanged: (value) => print('API guys to do things'),
+                  controller: middleTextEditingController,
+                  hintText: 'Date of birth',
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Date of birth is required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 UnderlinedTextField(

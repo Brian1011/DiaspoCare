@@ -5,7 +5,11 @@ import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import '../routes.dart';
 
 class AddBeneficiariesScreen extends StatefulWidget {
   @override
@@ -17,11 +21,16 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   TextEditingController lastNameTextEditingController;
   TextEditingController middleTextEditingController;
   TextEditingController relationTextEditingController;
+  TextEditingController dateOfBirthController;
+  TextEditingController genderController;
+  TextEditingController countryController;
+  DateTime pickedDate;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   int radioValue;
   double spacing = 10;
 
-  String selectedCountry, selectRelation;
+  String selectedCountry, selectedRelation;
 
   List<String> countries = ['Kenya', 'Tanzania', 'Ghana', 'Uganda', 'Nigeria'];
   List<String> relations = ['Child', 'Mother', 'Father'];
@@ -46,7 +55,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   void initState() {
     super.initState();
     refresh();
-    selectedRadioTile = 0;
+    selectedRadioTile = 1;
   }
 
   refresh() {
@@ -57,7 +66,73 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   setSelectedRadioTile(int val) {
     setState(() {
       selectedRadioTile = val;
+      if (val == 1) {
+        genderController.text = "male";
+      } else {
+        genderController.text = "female";
+      }
     });
+  }
+
+  pickDateOfBirth() async {
+    pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(Duration(days: 36500)),
+      lastDate: DateTime.now().subtract(Duration(days: 3650)),
+    );
+    if (pickedDate != null) {
+      // appointmentDateCtrl.text = "${formatDate(pickedDate, "MMM d, yyyy")}";
+      setState(() {
+        DateFormat format = DateFormat('yyyy-mm-dd');
+        var data = format.format(pickedDate);
+        dateOfBirthController.text = data;
+      });
+    }
+  }
+
+  bool validateForm() {
+    if (formKey.currentState.validate()) {
+      return true;
+    } else {
+      Fluttertoast.showToast(
+          msg: "Check your form input for errors",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
+      return false;
+    }
+  }
+
+  submitBeneficiary() async {
+    if (validateForm()) {
+      /*var data = {
+        "first_name": "johm",
+        "last_name": "linda",
+        "middle_name": "tess",
+        "date_of_birth": "1998-07-23",
+        "gender": "male",
+        "country": "KEN",
+        "relation": "child"
+      };*/
+
+      var data = {
+        "first_name": firstNameTextEditingController.text,
+        "last_name": lastNameTextEditingController.text,
+        "middle_name": middleTextEditingController.text,
+        "date_of_birth": dateOfBirthController.text,
+        "gender": genderController.text,
+        "country": countryController.text,
+        "relation": relationTextEditingController.text
+      };
+
+      print(data);
+
+      await beneficiaryService.addNewBeneficiary(data: data).then((value) {
+        Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
+      }).catchError((error) {
+        print(error);
+      });
+    }
   }
 
 // TODO: new ui has some missing variables;
@@ -90,23 +165,55 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                 RoundedTextField(
                   controller: firstNameTextEditingController,
                   hintText: 'First Name',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "First name is required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 RoundedTextField(
                   controller: middleTextEditingController,
                   hintText: 'Middle Name',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Middle name is required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 RoundedTextField(
                   controller: lastNameTextEditingController,
                   hintText: 'Last Name',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
-                  keyboardType: TextInputType.emailAddress,
+                  //keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Last name is required";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: spacing),
+                GestureDetector(
+                  onTap: pickDateOfBirth,
+                  child: AbsorbPointer(
+                    child: RoundedTextField(
+                      controller: middleTextEditingController,
+                      hintText: 'Date of birth',
+                      obscureText: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Date of birth is required";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
                 ),
                 SizedBox(height: spacing),
                 Row(
@@ -143,11 +250,8 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(
-                        child: Selector<CountryService, bool>(
-                      selector: (context, countryService) =>
-                          countryService.isGettingCountries,
-                      builder: (context, _loading, _) {
+                    Expanded(child: Consumer<CountryService>(
+                      builder: (context, countryService, _) {
                         return Column(
                           children: [
                             Container(
@@ -167,13 +271,12 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                 child: DropdownButton<String>(
                                   value: selectedCountry,
                                   style: TextStyle(color: Colors.white),
-                                  items: countries
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
+                                  items: countryService.countries
+                                      .map<DropdownMenuItem<String>>((country) {
                                     return DropdownMenuItem<String>(
-                                      value: value,
+                                      value: country?.name ?? '',
                                       child: Text(
-                                        value,
+                                        country?.name ?? '',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     );
@@ -191,17 +294,15 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                 ),
                               ),
                             ),
-                            if (_loading) LinearProgressIndicator()
+                            if (countryService.isGettingCountries)
+                              LinearProgressIndicator()
                           ],
                         );
                       },
                     )),
                     SizedBox(width: 40),
-                    Expanded(
-                        child: Selector<BeneficiaryService, bool>(
-                      selector: (context, beneficiaryService) =>
-                          beneficiaryService.isLoadingRelation,
-                      builder: (context, _loading, _) {
+                    Expanded(child: Consumer<BeneficiaryService>(
+                      builder: (context, beneficiaryService, _) {
                         return Column(
                           children: [
                             Container(
@@ -219,15 +320,15 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                                 child: DropdownButton<String>(
-                                  value: selectedCountry,
+                                  value: selectedRelation,
                                   style: TextStyle(color: Colors.white),
-                                  items: countries
+                                  items: beneficiaryService.relations
                                       .map<DropdownMenuItem<String>>(
-                                          (String value) {
+                                          (relation) {
                                     return DropdownMenuItem<String>(
-                                      value: value,
+                                      value: relation?.name ?? '',
                                       child: Text(
-                                        value,
+                                        relation?.name ?? '',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     );
@@ -239,13 +340,14 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                   ),
                                   onChanged: (String value) {
                                     setState(() {
-                                      selectedCountry = value;
+                                      selectedRelation = value;
                                     });
                                   },
                                 ),
                               ),
                             ),
-                            if (_loading) LinearProgressIndicator()
+                            if (countryService.isGettingCountries)
+                              LinearProgressIndicator()
                           ],
                         );
                       },
@@ -255,7 +357,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                 SizedBox(height: spacing * 2),
                 CenteredButton(
                   size: size,
-                  onPressed: () {},
+                  onPressed: submitBeneficiary,
                   child: Text(
                     'Save',
                     style: TextStyle(fontSize: 18.0, color: Colors.white),
