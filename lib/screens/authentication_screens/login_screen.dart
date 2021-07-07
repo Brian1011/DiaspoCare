@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
             passwordTextEditingController.text)
         .then((value) {
       if (value != null) {
-        print('User Succesfully Logged in');
+        Navigator.popAndPushNamed(context, RouteConfig.supporterHome);
       }
     });
   }
