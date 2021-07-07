@@ -33,6 +33,11 @@ class Api extends DioApi {
         '/method/hcfa_core.remote_procedures.beneficiaries.create_beneficiary',
         data: data);
   }
+
+  Future getSupporterTransaction() {
+    return dio.get(
+        '/method/hcfa_core.remote_procedures.supporter.get_supporter_transactions');
+  }
 }
 
 Api api = Api();
