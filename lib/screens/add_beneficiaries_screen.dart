@@ -21,7 +21,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   int radioValue;
   double spacing = 10;
 
-  String selectedCountry, selectRelation;
+  String selectedCountry, selectedRelation;
 
   List<String> countries = ['Kenya', 'Tanzania', 'Ghana', 'Uganda', 'Nigeria'];
   List<String> relations = ['Child', 'Mother', 'Father'];
@@ -150,11 +150,8 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(
-                        child: Selector<CountryService, bool>(
-                      selector: (context, countryService) =>
-                          countryService.isGettingCountries,
-                      builder: (context, _loading, _) {
+                    Expanded(child: Consumer<CountryService>(
+                      builder: (context, countryService, _) {
                         return Column(
                           children: [
                             Container(
@@ -174,13 +171,12 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                 child: DropdownButton<String>(
                                   value: selectedCountry,
                                   style: TextStyle(color: Colors.white),
-                                  items: countries
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
+                                  items: countryService.countries
+                                      .map<DropdownMenuItem<String>>((country) {
                                     return DropdownMenuItem<String>(
-                                      value: value,
+                                      value: country?.name ?? '',
                                       child: Text(
-                                        value,
+                                        country?.name ?? '',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     );
@@ -198,17 +194,15 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                 ),
                               ),
                             ),
-                            if (_loading) LinearProgressIndicator()
+                            if (countryService.isGettingCountries)
+                              LinearProgressIndicator()
                           ],
                         );
                       },
                     )),
                     SizedBox(width: 40),
-                    Expanded(
-                        child: Selector<BeneficiaryService, bool>(
-                      selector: (context, beneficiaryService) =>
-                          beneficiaryService.isLoadingRelation,
-                      builder: (context, _loading, _) {
+                    Expanded(child: Consumer<BeneficiaryService>(
+                      builder: (context, beneficiaryService, _) {
                         return Column(
                           children: [
                             Container(
@@ -226,15 +220,15 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                                 child: DropdownButton<String>(
-                                  value: selectedCountry,
+                                  value: selectedRelation,
                                   style: TextStyle(color: Colors.white),
-                                  items: countries
+                                  items: beneficiaryService.relations
                                       .map<DropdownMenuItem<String>>(
-                                          (String value) {
+                                          (relation) {
                                     return DropdownMenuItem<String>(
-                                      value: value,
+                                      value: relation?.name ?? '',
                                       child: Text(
-                                        value,
+                                        relation?.name ?? '',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     );
@@ -246,13 +240,14 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                   ),
                                   onChanged: (String value) {
                                     setState(() {
-                                      selectedCountry = value;
+                                      selectedRelation = value;
                                     });
                                   },
                                 ),
                               ),
                             ),
-                            if (_loading) LinearProgressIndicator()
+                            if (countryService.isGettingCountries)
+                              LinearProgressIndicator()
                           ],
                         );
                       },
