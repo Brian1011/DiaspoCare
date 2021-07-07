@@ -103,7 +103,11 @@ class _HomePharmacistState extends State<HomePharmacist> {
                     label: 'Payment Details',
                     iconData: Icons.credit_card_outlined),
                 bottomNavItem(
-                    label: 'Account', iconData: Icons.account_circle_outlined),
+                  label: 'Account',
+                  iconData: Icons.account_circle_outlined,
+                  onTap: () =>
+                      Navigator.pushNamed(context, RouteConfig.accountDetails),
+                ),
               ],
             ),
           )
@@ -112,15 +116,19 @@ class _HomePharmacistState extends State<HomePharmacist> {
     );
   }
 
-  Column bottomNavItem({String label, IconData iconData}) {
-    return Column(
-      children: [
-        Icon(
-          iconData,
-          color: Colors.blue,
-        ),
-        Text(label)
-      ],
+  GestureDetector bottomNavItem(
+      {String label, IconData iconData, Function onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Icon(
+            iconData,
+            color: Colors.blue,
+          ),
+          Text(label)
+        ],
+      ),
     );
   }
 
