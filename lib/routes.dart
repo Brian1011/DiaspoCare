@@ -3,12 +3,12 @@ import 'package:diaspo_care/screens/add_beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/login_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/payment_methods_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/registration_screen.dart';
-import 'package:diaspo_care/screens/beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/payment_history_screen.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/home_pharmacist.dart';
-import 'package:diaspo_care/screens/pharmacist_screens/add_phar_bank_details.dart';
+import 'package:diaspo_care/screens/pharmacist_screens/pharmacist_beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/pharmarcy_registration_screen.dart';
 import 'package:diaspo_care/screens/splash_screen.dart';
+import 'package:diaspo_care/screens/supporter_screens/beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/transaction_details_screen.dart';
 
 class RouteConfig {
@@ -24,8 +24,8 @@ class RouteConfig {
   static final addPayment = "addPayment";
   static final addBeneficiary = "addBeneficiary";
   static final homePharmacist = "homePharmacist";
-  static final registerPharmacy ="registerPharmacy";
-  static final addPharBankDetails ="pharmacyBankDetails";
+  static final registerPharmacy = "registerPharmacy";
+  static final pharmacistBeneficiaries = "pharmacistBeneficiaries";
 }
 
 var routes = {
@@ -42,5 +42,6 @@ var routes = {
   RouteConfig.addBeneficiary: (context) => AddBeneficiariesScreen(),
   RouteConfig.homePharmacist: (context) => HomePharmacist(),
   RouteConfig.registerPharmacy: (context) => PharmacyRegistrationScreen(),
-  RouteConfig.addPharBankDetails: (context) => AddPharBankDetails(),
+  RouteConfig.pharmacistBeneficiaries: (context) =>
+      PharmacistBeneficiariesScreen(),
 };

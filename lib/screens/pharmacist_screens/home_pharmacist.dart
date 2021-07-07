@@ -1,3 +1,4 @@
+import 'package:diaspo_care/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,9 @@ class _HomePharmacistState extends State<HomePharmacist> {
                       borderedContainer(
                           size: size,
                           label: 'Beneficiaries',
-                          iconData: Icons.people_alt_outlined),
+                          iconData: Icons.people_alt_outlined,
+                          onTap: () => Navigator.pushNamed(
+                              context, RouteConfig.beneficiaries)),
                       borderedContainer(
                           size: size,
                           label: 'Transactions',
@@ -100,7 +103,11 @@ class _HomePharmacistState extends State<HomePharmacist> {
                     label: 'Payment Details',
                     iconData: Icons.credit_card_outlined),
                 bottomNavItem(
-                    label: 'Account', iconData: Icons.account_circle_outlined),
+                  label: 'Account',
+                  iconData: Icons.account_circle_outlined,
+                  onTap: () =>
+                      Navigator.pushNamed(context, RouteConfig.accountDetails),
+                ),
               ],
             ),
           )
@@ -109,24 +116,26 @@ class _HomePharmacistState extends State<HomePharmacist> {
     );
   }
 
-  Column bottomNavItem({String label, IconData iconData}) {
-    return Column(
-      children: [
-        Icon(
-          iconData,
-          color: Colors.blue,
-        ),
-        Text(label)
-      ],
+  GestureDetector bottomNavItem(
+      {String label, IconData iconData, Function onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Icon(
+            iconData,
+            color: Colors.blue,
+          ),
+          Text(label)
+        ],
+      ),
     );
   }
 
   GestureDetector borderedContainer(
-      {String label, IconData iconData, Size size}) {
+      {String label, IconData iconData, Size size, Function onTap}) {
     return GestureDetector(
-      onTap: () {
-        print('do something');
-      },
+      onTap: onTap,
       child: Container(
         width: size.width * 0.35,
         decoration: BoxDecoration(

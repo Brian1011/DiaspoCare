@@ -13,6 +13,9 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  refresh() {
     beneficiaryService.loadBeneficiaries();
   }
 
@@ -22,6 +25,7 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Beneficiaries'),
+        actions: [IconButton(icon: Icon(Icons.refresh), onPressed: refresh)],
       ),
       body: Padding(
         padding: EdgeInsets.all(10),
@@ -110,6 +114,7 @@ class BeneficiariesTab extends StatelessWidget {
             builder: (context, beneficiaryService, _) {
               return CircularMaterialSpinner(
                 loading: beneficiaryService.isLoadingBeneficiariesList,
+                isBtn: false,
                 child: ListView.builder(
                     itemCount: beneficiaryService.beneficiaries.length,
                     itemBuilder: (context, index) {
