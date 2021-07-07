@@ -94,17 +94,15 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
   }
 
   bool validateForm() {
-    // if (formKey.currentState.validate()) {
-    //   return true;
-    // } else {
-    //   Fluttertoast.showToast(
-    //       msg: "Check your form input for errors",
-    //       backgroundColor: Colors.black,
-    //       textColor: Colors.white);
-    //   return false;
-    // }
-
-    return true;
+    if (formKey.currentState.validate()) {
+      return true;
+    } else {
+      Fluttertoast.showToast(
+          msg: "Check your form input for errors",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
+      return false;
+    }
   }
 
   submitBeneficiary() async {

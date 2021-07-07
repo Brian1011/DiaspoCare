@@ -7,6 +7,8 @@ import 'package:diaspo_care/widgets/underlined_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:diaspo_care/routes.dart';
 
 class PharmacyRegistrationScreen extends StatefulWidget {
   @override
@@ -16,11 +18,17 @@ class PharmacyRegistrationScreen extends StatefulWidget {
 
 class _PharmacyRegistrationScreenState
     extends State<PharmacyRegistrationScreen> {
-  TextEditingController pharmacyNameTextEditingController;
-  TextEditingController pharmacyRegNumberTextEditingController;
-  TextEditingController pharmacyRegEmailTextEditingController;
-  TextEditingController pharmacyRegPhoneTextEditingController;
-  TextEditingController pharmacyAddressTextEditingController;
+  TextEditingController pharmacyNameTextEditingController =
+      TextEditingController();
+  TextEditingController pharmacyRegNumberTextEditingController =
+      TextEditingController();
+  TextEditingController pharmacyRegEmailTextEditingController =
+      TextEditingController();
+  TextEditingController pharmacyRegPhoneTextEditingController =
+      TextEditingController();
+  TextEditingController pharmacyAddressTextEditingController =
+      TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   int radioValue;
   double spacing = 10;
@@ -63,6 +71,48 @@ class _PharmacyRegistrationScreenState
     setState(() {
       selectedRadioTile = val;
     });
+  }
+
+  bool validateForm() {
+    if (formKey.currentState.validate()) {
+      return true;
+    } else {
+      Fluttertoast.showToast(
+          msg: "Check your form input for errors",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
+      return false;
+    }
+  }
+
+  submitPharmacyDetails() async {
+    if (validateForm()) {
+      /*var data = {
+        "first_name": "johm",
+        "last_name": "linda",
+        "middle_name": "tess",
+        "date_of_birth": "1998-07-23",
+        "gender": "male",
+        "country": "KEN",
+        "relation": "child"
+      };*/
+
+      var data = {
+        "phar_name": pharmacyNameTextEditingController.text,
+        "phar_reg_no": pharmacyRegNumberTextEditingController.text,
+        "phar_email": pharmacyRegEmailTextEditingController.text,
+        "phar_reg_phone": pharmacyRegPhoneTextEditingController.text,
+        "phar_address": pharmacyAddressTextEditingController.text,
+      };
+
+      print(data);
+
+      await beneficiaryService.addNewBeneficiary(data: data).then((value) {
+        //Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
+      }).catchError((error) {
+        print(error);
+      });
+    }
   }
 
 // TODO: new ui has some missing variables;
@@ -134,22 +184,37 @@ class _PharmacyRegistrationScreenState
                 UnderlinedTextField(
                   controller: pharmacyNameTextEditingController,
                   hintText: 'Pharmacy Name',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Full Names required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 UnderlinedTextField(
                   controller: pharmacyRegNumberTextEditingController,
                   hintText: 'Pharmacy Registration No.',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Full Names required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 UnderlinedTextField(
                   controller: pharmacyRegEmailTextEditingController,
                   hintText: 'Registered Pharmacy Email Address',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Full Names required";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: spacing),
                 Row(
@@ -267,14 +332,24 @@ class _PharmacyRegistrationScreenState
                 UnderlinedTextField(
                   controller: pharmacyRegEmailTextEditingController,
                   hintText: 'Registered Pharmacy Phone Number',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Full Names required";
+                    }
+                    return null;
+                  },
                 ),
                 UnderlinedTextField(
                   controller: pharmacyAddressTextEditingController,
                   hintText: 'Address',
-                  onChanged: (value) => print('API guys to do things'),
                   obscureText: false,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Full Names required";
+                    }
+                    return null;
+                  },
                 ),
                 TextButton(
                   onPressed: () {},
