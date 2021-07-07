@@ -29,7 +29,10 @@ class _HomePharmacistState extends State<HomePharmacist> {
                     child: Column(
                       children: [
                         SizedBox(height: 10),
-                        Text('Logo place holder'),
+                        Image.asset(
+                          'assets/DC_Logo_name.png',
+                          width: size.width * 0.7,
+                        ),
                         SizedBox(height: 20),
                         Text('Welcome'),
                         Text('{First Name} {Last Name}'),
