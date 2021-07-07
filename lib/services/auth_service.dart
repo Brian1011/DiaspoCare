@@ -48,7 +48,15 @@ class AuthService extends ChangeNotifier {
       DateTime dateOfBirth,
       String gender,
       String country,
-      String password}) {
+      String password,
+      String pharmacyName,
+      String regPharNumber,
+      String city,
+      String relation,
+      String parentPharmacies,
+      String regPharEmail,
+      String regPharPhone,
+      String pharAddress}) {
     var data = {
       "email": email,
       "first_name": firstName,
@@ -58,6 +66,14 @@ class AuthService extends ChangeNotifier {
       "gender": gender,
       "country": country,
       "new_password": password,
+      "phar_name": pharmacyName,
+      "phar_reg_no": regPharNumber,
+      "city": city,
+      "relation": relation,
+      "parent_pharmacies": parentPharmacies,
+      "phar_email": regPharEmail,
+      "phar_reg_phone": regPharPhone,
+      "phar_address": pharAddress,
     };
     isSigningUp = true;
     return api.signUp(data).then((response) {
