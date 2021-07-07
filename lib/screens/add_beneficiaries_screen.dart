@@ -1,4 +1,3 @@
-import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/services/beneficiary_service.dart';
 import 'package:diaspo_care/services/country_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
@@ -141,7 +140,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
     }
   }
 
-// TODO: new ui has some missing variables;
+/*// TODO: new ui has some missing variables;
   void registerBtnFn() {
     authService.signUp(
       country: selectedCountry,
@@ -149,7 +148,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
       middleName: middleTextEditingController.text,
       lastName: lastNameTextEditingController.text,
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

@@ -58,12 +58,12 @@ class BeneficiaryService extends ChangeNotifier {
   }
 
   Future loadBeneficiaries() async {
-    _isLoadingBeneficiariesList = true;
+    isLoadingBeneficiariesList = true;
     return await api.getBeneficiaryList().then((response) {
       var payload = response.data["message"];
       _saveBeneficiaries(payload);
     }).catchError((error) {
-      _isLoadingBeneficiariesList = false;
+      isLoadingBeneficiariesList = false;
       print('error while loading errors $error');
       Fluttertoast.showToast(
           msg: "Can't load beneficiaries list",
@@ -78,20 +78,20 @@ class BeneficiaryService extends ChangeNotifier {
     payload.forEach((beneficiary) {
       beneficiaries.add(Beneficiary.fromJson(beneficiary));
     });
-    _isLoadingBeneficiariesList = false;
+    isLoadingBeneficiariesList = false;
   }
 
   Future addNewBeneficiary({var data}) async {
-    _isLoadingBeneficiaryAdd = true;
+    isLoadingBeneficiaryAdd = true;
     return await api.saveBeneficiary(data: data).then((response) {
       Fluttertoast.showToast(
           msg: "Beneficiary added successfully",
           backgroundColor: Colors.black,
           textColor: Colors.white);
-      _isLoadingBeneficiaryAdd = false;
+      isLoadingBeneficiaryAdd = false;
       return response;
     }).catchError((error) {
-      _isLoadingBeneficiaryAdd = false;
+      isLoadingBeneficiaryAdd = false;
       Fluttertoast.showToast(
           msg: "Can't save beneficiary",
           backgroundColor: Colors.black,

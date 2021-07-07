@@ -13,6 +13,7 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
   @override
   void initState() {
     super.initState();
+    refresh();
   }
 
   refresh() {
@@ -110,11 +111,14 @@ class BeneficiariesTab extends StatelessWidget {
         ),
         SizedBox(height: 20),
         Expanded(
-          child: Consumer<BeneficiaryService>(
-            builder: (context, beneficiaryService, _) {
+          child: Selector<BeneficiaryService, bool>(
+            selector: (context, beneficaryService) =>
+                beneficaryService.isLoadingBeneficiariesList,
+            builder: (context, isLoading, _) {
               return CircularMaterialSpinner(
                 loading: beneficiaryService.isLoadingBeneficiariesList,
                 isBtn: false,
+                color: Colors.blue,
                 child: ListView.builder(
                     itemCount: beneficiaryService.beneficiaries.length,
                     itemBuilder: (context, index) {
