@@ -9,6 +9,7 @@ class PaymentMethodsScreen extends StatefulWidget {
 
 class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
   int selectedRadioTile;
+  double spacing = 10;
 
   @override
   void initState() {
@@ -95,88 +96,88 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
               indent: 20,
               endIndent: 20,
             ),
-            RadioListTile(
-              value: 3,
-              groupValue: selectedRadioTile,
-              title: Text("PesaLink"),
-              onChanged: (val) {
-                print("Radio Tile pressed $val");
-                setSelectedRadioTile(val);
-              },
-              activeColor: Colors.blue,
-              //secondary: Image.asset('assets/pesaLink_logo.jpg'),
-              secondary: Container(
-                width: 80,
-                height: 80,
-                child: Image.asset('assets/pesaLink_logo.jpg'),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              selected: true,
-            ),
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-              indent: 20,
-              endIndent: 20,
-            ),
-            RadioListTile(
-              value: 4,
-              groupValue: selectedRadioTile,
-              title: Text("Stripe"),
-              onChanged: (val) {
-                print("Radio Tile pressed $val");
-                setSelectedRadioTile(val);
-              },
-              activeColor: Colors.blue,
-              //secondary: Image.asset('assets/Stripe_logo.png'),
-              secondary: Container(
-                width: 80,
-                height: 80,
-                child: Image.asset('assets/Stripe_logo.png'),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              selected: true,
-            ),
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-              indent: 20,
-              endIndent: 20,
-            ),
-            RadioListTile(
-              value: 5,
-              groupValue: selectedRadioTile,
-              title: Text("Paypal"),
-              onChanged: (val) {
-                print("Radio Tile pressed $val");
-                setSelectedRadioTile(val);
-              },
-              activeColor: Colors.blue,
-              //secondary: Image.asset('assets/paypal_logo.png'),
-              secondary: Container(
-                width: 80,
-                height: 80,
-                child: Image.asset('assets/paypal_logo.png'),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              selected: true,
-            ),
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-              indent: 20,
-              endIndent: 20,
-            ),
-            SizedBox(height: 100),
+            // RadioListTile(
+            //   value: 3,
+            //   groupValue: selectedRadioTile,
+            //   title: Text("PesaLink"),
+            //   onChanged: (val) {
+            //     print("Radio Tile pressed $val");
+            //     setSelectedRadioTile(val);
+            //   },
+            //   activeColor: Colors.blue,
+            //   //secondary: Image.asset('assets/pesaLink_logo.jpg'),
+            //   secondary: Container(
+            //     width: 80,
+            //     height: 80,
+            //     child: Image.asset('assets/pesaLink_logo.jpg'),
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //   ),
+            //   selected: true,
+            // ),
+            // Divider(
+            //   color: Colors.black,
+            //   thickness: 1,
+            //   indent: 20,
+            //   endIndent: 20,
+            // ),
+            // RadioListTile(
+            //   value: 4,
+            //   groupValue: selectedRadioTile,
+            //   title: Text("Stripe"),
+            //   onChanged: (val) {
+            //     print("Radio Tile pressed $val");
+            //     setSelectedRadioTile(val);
+            //   },
+            //   activeColor: Colors.blue,
+            //   //secondary: Image.asset('assets/Stripe_logo.png'),
+            //   secondary: Container(
+            //     width: 80,
+            //     height: 80,
+            //     child: Image.asset('assets/Stripe_logo.png'),
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //   ),
+            //   selected: true,
+            // ),
+            // Divider(
+            //   color: Colors.black,
+            //   thickness: 1,
+            //   indent: 20,
+            //   endIndent: 20,
+            // ),
+            // RadioListTile(
+            //   value: 5,
+            //   groupValue: selectedRadioTile,
+            //   title: Text("Paypal"),
+            //   onChanged: (val) {
+            //     print("Radio Tile pressed $val");
+            //     setSelectedRadioTile(val);
+            //   },
+            //   activeColor: Colors.blue,
+            //   //secondary: Image.asset('assets/paypal_logo.png'),
+            //   secondary: Container(
+            //     width: 80,
+            //     height: 80,
+            //     child: Image.asset('assets/paypal_logo.png'),
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //   ),
+            //   selected: true,
+            // ),
+            // Divider(
+            //   color: Colors.black,
+            //   thickness: 1,
+            //   indent: 20,
+            //   endIndent: 20,
+            // ),
+            SizedBox(height: spacing * 10),
             CenteredButton(
               size: size,
               onPressed: () => print('API guys to do things'),

@@ -1,7 +1,10 @@
 import 'package:diaspo_care/routes.dart';
+import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
+import 'package:diaspo_care/widgets/circular_material_spinner.dart';
 import 'package:diaspo_care/widgets/underlined_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,8 +13,19 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  TextEditingController userNameTextEditingController;
-  TextEditingController passwordTextEditingController;
+  TextEditingController userNameTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
+
+  void loginSubmitFn() {
+    authService
+        .login(userNameTextEditingController.text,
+            passwordTextEditingController.text)
+        .then((value) {
+      if (value != null) {
+        print('User Succesfully Logged in');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +61,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: true,
                     ),
                     SizedBox(height: 20),
-                    CenteredButton(
-                      size: size,
-                      onPressed: () => print('API guys to do things'),
-                      child: Text(
-                        'LOGIN',
-                        style: TextStyle(fontSize: 18.0, color: Colors.white),
-                      ),
-                    ),
+                    Selector<AuthService, bool>(
+                        selector: (context, authservice) =>
+                            authservice.isLoggingIn,
+                        builder: (context, isLoggingin, _) {
+                          return CenteredButton(
+                            size: size,
+                            onPressed: loginSubmitFn,
+                            child: CircularMaterialSpinner(
+                              isBtn: true,
+                              loading: isLoggingin,
+                              child: Text(
+                                'LOGIN',
+                                style: TextStyle(
+                                    fontSize: 18.0, color: Colors.white),
+                              ),
+                            ),
+                          );
+                        }),
                     TextButton(
                       onPressed: () => Navigator.pushNamed(
                           context, RouteConfig.registration),
@@ -62,13 +86,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       onPressed: () => Navigator.pushNamed(
-                          context, RouteConfig.registration),
-                      child: Text('Supporter Registration'),
+                          context, RouteConfig.paymentMethod),
+                      child: Text('Payment Method screen'),
                     ),
                     TextButton(
                       onPressed: () => Navigator.pushNamed(
                           context, RouteConfig.beneficiaries),
-                      child: Text('Beneficiareis screen'),
+                      child: Text('Beneficiaries screen'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.transactionDetail),
+                      child: Text('Transaction Details'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.accountDetails),
+                      child: Text('Account Details'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.paymentHistory),
+                      child: Text('Payment History'),
                     ),
                   ],
                 ),
