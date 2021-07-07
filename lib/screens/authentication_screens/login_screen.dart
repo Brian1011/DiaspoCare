@@ -114,6 +114,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           context, RouteConfig.homePharmacist),
                       child: Text('Home pharmacist'),
                     ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.addBeneficiary),
+                      child: Text('Add Beneficiaries'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.registerPharmacy),
+                      child: Text('Register Pharmacy'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.addPharBankDetails),
+                      child: Text('Add Pharmacy Bank'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                          context, RouteConfig.addPharContactDetails),
+                      child: Text('Add Pharmacy Contact Details'),
+                    ),
                   ],
                 ),
               ),
