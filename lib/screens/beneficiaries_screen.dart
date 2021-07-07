@@ -1,4 +1,8 @@
+import 'package:diaspo_care/data/models/beneficiary_model.dart';
+import 'package:diaspo_care/services/beneficiary_service.dart';
+import 'package:diaspo_care/widgets/circular_material_spinner.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BeneficiariesScreen extends StatefulWidget {
   @override
@@ -6,6 +10,12 @@ class BeneficiariesScreen extends StatefulWidget {
 }
 
 class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
+  @override
+  void initState() {
+    super.initState();
+    beneficiaryService.loadBeneficiaries();
+  }
+
   int tab = 1;
   @override
   Widget build(BuildContext context) {
@@ -96,26 +106,44 @@ class BeneficiariesTab extends StatelessWidget {
         ),
         SizedBox(height: 20),
         Expanded(
-          child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, item) {
-                return Container(
-                  margin: EdgeInsets.only(bottom: 5),
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 1, color: Colors.black12),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(flex: 2, child: Text('First lastname')),
-                      Expanded(flex: 2, child: Text('Nairobi')),
-                      Expanded(flex: 2, child: Text('Credit')),
-                    ],
-                  ),
-                );
-              }),
+          child: Consumer<BeneficiaryService>(
+            builder: (context, beneficiaryService, _) {
+              return CircularMaterialSpinner(
+                loading: beneficiaryService.isLoadingBeneficiariesList,
+                child: ListView.builder(
+                    itemCount: beneficiaryService.beneficiaries.length,
+                    itemBuilder: (context, index) {
+                      Beneficiary beneficiary =
+                          beneficiaryService.beneficiaries[index];
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 5),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(width: 1, color: Colors.black12),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 2,
+                                child: Text(
+                                    "${beneficiary?.user?.fullName ?? ''}")),
+                            Expanded(
+                                flex: 2,
+                                child: Text(
+                                    '${beneficiary?.profile?.supporter ?? ''}')),
+                            Expanded(
+                                flex: 2,
+                                child: Text(
+                                    '${beneficiary?.profile?.relation ?? ''}')),
+                          ],
+                        ),
+                      );
+                    }),
+              );
+            },
+          ),
         ),
       ],
     );

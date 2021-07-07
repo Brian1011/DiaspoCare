@@ -95,7 +95,7 @@ class BeneficiaryService extends ChangeNotifier {
           msg: "Can't save beneficiary",
           backgroundColor: Colors.black,
           textColor: Colors.white);
-      return error;
+      return throw error;
     });
   }
 }
