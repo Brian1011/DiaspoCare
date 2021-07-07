@@ -2,6 +2,7 @@ import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/services/beneficiary_service.dart';
 import 'package:diaspo_care/services/country_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
+import 'package:diaspo_care/widgets/circular_material_spinner.dart';
 import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +18,14 @@ class AddBeneficiariesScreen extends StatefulWidget {
 }
 
 class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
-  TextEditingController firstNameTextEditingController;
-  TextEditingController lastNameTextEditingController;
-  TextEditingController middleTextEditingController;
-  TextEditingController relationTextEditingController;
-  TextEditingController dateOfBirthController;
-  TextEditingController genderController;
-  TextEditingController countryController;
+  TextEditingController firstNameTextEditingController =
+      TextEditingController();
+  TextEditingController lastNameTextEditingController = TextEditingController();
+  TextEditingController middleTextEditingController = TextEditingController();
+  TextEditingController relationTextEditingController = TextEditingController();
+  TextEditingController dateOfBirthController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   DateTime pickedDate;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -67,9 +69,9 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
     setState(() {
       selectedRadioTile = val;
       if (val == 1) {
-        genderController.text = "male";
+        genderController?.text = "male";
       } else {
-        genderController.text = "female";
+        genderController?.text = "female";
       }
     });
   }
@@ -79,14 +81,14 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now().subtract(Duration(days: 36500)),
-      lastDate: DateTime.now().subtract(Duration(days: 3650)),
+      lastDate: DateTime.now().subtract(Duration(hours: 1)),
     );
     if (pickedDate != null) {
       // appointmentDateCtrl.text = "${formatDate(pickedDate, "MMM d, yyyy")}";
       setState(() {
-        DateFormat format = DateFormat('yyyy-mm-dd');
+        DateFormat format = DateFormat('yyyy-MM-dd');
         var data = format.format(pickedDate);
-        dateOfBirthController.text = data;
+        dateOfBirthController.text = data.toString();
       });
     }
   }
@@ -122,14 +124,17 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
         "date_of_birth": dateOfBirthController.text,
         "gender": genderController.text,
         "country": countryController.text,
-        "relation": relationTextEditingController.text
+        "relation": selectedRelation
       };
 
       print(data);
 
       await beneficiaryService.addNewBeneficiary(data: data).then((value) {
+        print('******************VALUE');
+        print(value);
         Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
       }).catchError((error) {
+        print('******************ERROR');
         print(error);
       });
     }
@@ -159,6 +164,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
       body: Padding(
           padding: EdgeInsets.all(10),
           child: Form(
+            key: formKey,
             child: ListView(
               children: [
                 SizedBox(height: spacing / 2),
@@ -203,7 +209,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                   onTap: pickDateOfBirth,
                   child: AbsorbPointer(
                     child: RoundedTextField(
-                      controller: middleTextEditingController,
+                      controller: dateOfBirthController,
                       hintText: 'Date of birth',
                       obscureText: false,
                       validator: (value) {
@@ -341,6 +347,8 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                                   onChanged: (String value) {
                                     setState(() {
                                       selectedRelation = value;
+                                      relationTextEditingController.text =
+                                          value;
                                     });
                                   },
                                 ),
@@ -355,13 +363,24 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                   ],
                 ),
                 SizedBox(height: spacing * 2),
-                CenteredButton(
-                  size: size,
-                  onPressed: submitBeneficiary,
-                  child: Text(
-                    'Save',
-                    style: TextStyle(fontSize: 18.0, color: Colors.white),
-                  ),
+                Selector<BeneficiaryService, bool>(
+                  selector: (context, beneficiaryService) =>
+                      beneficiaryService.isLoadingBeneficiaryAdd,
+                  builder: (context, isLoadingBeneficiaryAdd, _) {
+                    return CenteredButton(
+                      size: size,
+                      onPressed: submitBeneficiary,
+                      child: CircularMaterialSpinner(
+                        isBtn: true,
+                        color: Colors.white,
+                        loading: isLoadingBeneficiaryAdd,
+                        child: Text(
+                          'Save',
+                          style: TextStyle(fontSize: 18.0, color: Colors.white),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
