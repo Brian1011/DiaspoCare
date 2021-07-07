@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 import '../../routes.dart';
 
-class PharmacyBankDetails extends StatefulWidget {
+class AddPharBankDetails extends StatefulWidget {
   @override
-  _PharmacyBankDetailsState createState() => _PharmacyBankDetailsState();
+  _AddPharBankDetailsState createState() => _AddPharBankDetailsState();
 }
 
-class _PharmacyBankDetailsState extends State<PharmacyBankDetails> {
+class _AddPharBankDetailsState extends State<AddPharBankDetails> {
   int selectedRadioTile;
   double spacing = 10;
 
