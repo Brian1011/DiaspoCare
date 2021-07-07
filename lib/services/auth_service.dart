@@ -18,9 +18,6 @@ class AuthService extends ChangeNotifier {
   Future login(String email, String password) {
     isLoggingIn = true;
     return api.login(email, password).then((response) {
-      print('*************************RESPONSE*******************************');
-      print(response);
-      print('*************************RESPONSE*******************************');
       var payload = response.data;
       _saveLoginData(email, payload);
       return payload;
@@ -80,6 +77,10 @@ class AuthService extends ChangeNotifier {
 
   clearCookie() {
     db.cookieBox.clear();
+  }
+
+  logout() {
+    clearCookie();
   }
 }
 

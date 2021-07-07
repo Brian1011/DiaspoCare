@@ -26,6 +26,7 @@ class DioApi {
 
     print(
         "REQUEST: ${options?.method}: ${options?.baseUrl}${options?.path} ${options?.queryParameters}");
+    print("DATA: ${options?.data}");
   }
 
   void _responseIntercept(response) {

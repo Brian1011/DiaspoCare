@@ -80,8 +80,23 @@ class BeneficiaryService extends ChangeNotifier {
     _isLoadingBeneficiariesList = false;
   }
 
-  Future saveBeneficiary({var data}) {
+  Future addNewBeneficiary({var data}) {
     _isLoadingBeneficiaryAdd = true;
+    return api.saveBeneficiary(data: data).then((response) {
+      Fluttertoast.showToast(
+          msg: "Beneficiary added successfully",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
+      _isLoadingBeneficiaryAdd = false;
+      return response;
+    }).catchError((error) {
+      _isLoadingBeneficiaryAdd = false;
+      Fluttertoast.showToast(
+          msg: "Can't save beneficiary",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
+      return error;
+    });
   }
 }
 

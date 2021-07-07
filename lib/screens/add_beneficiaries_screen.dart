@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../routes.dart';
+
 class AddBeneficiariesScreen extends StatefulWidget {
   @override
   _AddBeneficiariesScreenState createState() => _AddBeneficiariesScreenState();
@@ -74,6 +76,24 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
       DateFormat format = DateFormat('yyyy-mm-dd');
       var data = format.format(pickedDate);
     }
+  }
+
+  submitBeneficiary() async {
+    var data = {
+      "first_name": "johm",
+      "last_name": "linda",
+      "middle_name": "tess",
+      "date_of_birth": "1998-07-23",
+      "gender": "male",
+      "country": "KEN",
+      "relation": "child"
+    };
+
+    await beneficiaryService.addNewBeneficiary(data: data).then((value) {
+      Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
+    }).catchError((error) {
+      print(error);
+    });
   }
 
 // TODO: new ui has some missing variables;
@@ -278,7 +298,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                 SizedBox(height: spacing * 2),
                 CenteredButton(
                   size: size,
-                  onPressed: () {},
+                  onPressed: submitBeneficiary,
                   child: Text(
                     'Save',
                     style: TextStyle(fontSize: 18.0, color: Colors.white),
