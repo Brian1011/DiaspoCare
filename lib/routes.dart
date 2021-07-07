@@ -3,12 +3,12 @@ import 'package:diaspo_care/screens/add_beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/login_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/payment_methods_screen.dart';
 import 'package:diaspo_care/screens/authentication_screens/registration_screen.dart';
-import 'package:diaspo_care/screens/beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/payment_history_screen.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/home_pharmacist.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/pharmacist_beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/pharmarcy_registration_screen.dart';
 import 'package:diaspo_care/screens/splash_screen.dart';
+import 'package:diaspo_care/screens/supporter_screens/supporter_home_screen.dart';
 import 'package:diaspo_care/screens/transaction_details_screen.dart';
 
 class RouteConfig {
@@ -16,7 +16,7 @@ class RouteConfig {
   static final splash = "splash";
   static final registration = "vendorRegistration";
   static final paymentRegistration = "paymentRegistration";
-  static final beneficiaries = "beneficiaries";
+  static final supporterHome = "supporterHome";
   static final paymentMethod = "paymentMethod";
   static final accountDetails = "accountDetails";
   static final paymentHistory = "paymentHistory";
@@ -33,7 +33,7 @@ var routes = {
   RouteConfig.login: (context) => LoginScreen(),
   RouteConfig.registration: (context) => RegistrationScreen(),
   RouteConfig.paymentRegistration: (context) => PaymentMethodsScreen(),
-  RouteConfig.beneficiaries: (context) => BeneficiariesScreen(),
+  RouteConfig.supporterHome: (context) => SupporterHomeScreen(),
   RouteConfig.paymentMethod: (context) => PaymentMethodsScreen(),
   RouteConfig.accountDetails: (context) => AccountDetailsScreen(),
   RouteConfig.paymentHistory: (context) => PaymentHistoryScreen(),
