@@ -5,6 +5,7 @@ import 'package:diaspo_care/screens/authentication_screens/payment_methods_scree
 import 'package:diaspo_care/screens/authentication_screens/registration_screen.dart';
 import 'package:diaspo_care/screens/beneficiaries_screen.dart';
 import 'package:diaspo_care/screens/payment_history_screen.dart';
+import 'package:diaspo_care/screens/pharmacist_screens/add_contact_details.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/home_pharmacist.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/add_phar_bank_details.dart';
 import 'package:diaspo_care/screens/pharmacist_screens/pharmarcy_registration_screen.dart';
@@ -26,6 +27,7 @@ class RouteConfig {
   static final homePharmacist = "homePharmacist";
   static final registerPharmacy ="registerPharmacy";
   static final addPharBankDetails ="pharmacyBankDetails";
+  static final addPharContactDetails ="addPharContactDetails";
 }
 
 var routes = {
@@ -43,4 +45,5 @@ var routes = {
   RouteConfig.homePharmacist: (context) => HomePharmacist(),
   RouteConfig.registerPharmacy: (context) => PharmacyRegistrationScreen(),
   RouteConfig.addPharBankDetails: (context) => AddPharBankDetails(),
+  RouteConfig.addPharContactDetails: (context) => AddContactDetails(),
 };

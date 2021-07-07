@@ -54,7 +54,13 @@ class AuthService extends ChangeNotifier {
       String parentPharmacies,
       String regPharEmail,
       String regPharPhone,
-      String pharAddress}) {
+      String pharAddress,
+      String fullNames1,
+      String fullName2,
+      String designation1,
+      String designation2,
+      String phoneNo1,
+      String phoneNo2}) {
     var data = {
       "email": email,
       "first_name": firstName,
@@ -72,6 +78,12 @@ class AuthService extends ChangeNotifier {
       "phar_email": regPharEmail,
       "phar_reg_phone": regPharPhone,
       "phar_address": pharAddress,
+      "full_names1": fullNames1,
+      "full_names2": fullName2,
+      "designation1": designation1,
+      "designation2": designation2,
+      "phoneNo1": phoneNo1,
+      "phoneNo2": phoneNo2,
     };
     isSigningUp = true;
     return api.signUp(data).then((response) {
