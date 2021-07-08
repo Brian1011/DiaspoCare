@@ -2,7 +2,7 @@ import 'package:diaspo_care/routes.dart';
 import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/circular_material_spinner.dart';
-import 'package:diaspo_care/widgets/underlined_textfield.dart';
+import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   TextEditingController userNameTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  bool obscurePassword = true;
 
   void loginSubmitFn() {
     authService
@@ -52,17 +53,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 20),
-                    UnderlinedTextField(
+                    RoundedTextField(
+                      showSuffix: false,
                       controller: userNameTextEditingController,
                       hintText: 'Username',
-                      onChanged: (value) => print('API guys to do things'),
                       obscureText: false,
                     ),
                     SizedBox(height: 20),
-                    UnderlinedTextField(
+                    RoundedTextField(
+                      showSuffix: true,
                       controller: passwordTextEditingController,
                       hintText: 'Password',
-                      onChanged: (value) => print('API guys to do things'),
                       obscureText: true,
                     ),
                     SizedBox(height: 20),

@@ -87,6 +87,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     children: [
                       SizedBox(height: spacing / 2),
                       RoundedTextField(
+                        showSuffix: false,
                         controller: firstNameTextEditingController,
                         hintText: 'First Name',
                         onChanged: (value) => print('API guys to do things'),
@@ -94,6 +95,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: spacing),
                       RoundedTextField(
+                        showSuffix: false,
                         controller: lastNameTextEditingController,
                         hintText: 'Last Name',
                         onChanged: (value) => print('API guys to do things'),
@@ -101,6 +103,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: spacing),
                       RoundedTextField(
+                        showSuffix: false,
                         controller: emailTextEditingController,
                         hintText: 'Email Address',
                         onChanged: (value) => print('API guys to do things'),
@@ -109,6 +112,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: spacing),
                       RoundedTextField(
+                        showSuffix: true,
                         controller: passwordTextEditingController,
                         hintText: 'Password',
                         onChanged: (value) => print('API guys to do things'),
@@ -116,6 +120,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: spacing),
                       RoundedTextField(
+                        showSuffix: true,
                         controller: confirmPasswordTextEditingController,
                         hintText: 'Confirm Password',
                         onChanged: (value) => print('API guys to do things'),
@@ -198,6 +203,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: spacing),
                       RoundedTextField(
+                        showSuffix: false,
                         controller: phoneNumberTextEditingController,
                         hintText: 'Phone Number',
                         onChanged: (value) => print('API guys to do things'),
@@ -206,6 +212,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: spacing),
                       RoundedTextField(
+                        showSuffix: false,
                         controller: phoneNumberTextEditingController,
                         hintText: 'Address',
                         onChanged: (value) => print('API guys to do things'),
@@ -214,6 +221,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: spacing),
                       RoundedTextField(
+                        showSuffix: false,
                         controller: phoneNumberTextEditingController,
                         hintText: 'City',
                         onChanged: (value) => print('API guys to do things'),
