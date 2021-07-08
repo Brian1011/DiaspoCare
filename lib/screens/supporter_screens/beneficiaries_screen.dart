@@ -33,7 +33,7 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
           children: [
             CustomAppBar(
               title: tab == 1 ? 'Beneficiaries' : 'Transactions',
-              showIcon: true,
+              noIcon: true,
             ),
             Expanded(
               child: Padding(
@@ -99,7 +99,7 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
                                 children: [
                                   SizedBox(height: 10),
                                   Icon(
-                                    Icons.sync_alt_outlined,
+                                    Icons.credit_card,
                                     color:
                                         tab == 2 ? Colors.white : Colors.black,
                                   ),

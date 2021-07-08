@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  CustomAppBar({@required this.title, this.showIcon});
+  CustomAppBar({@required this.title, this.noIcon});
   String title;
-  bool showIcon = false;
+  bool noIcon = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget {
                   fontSize: 20,
                   color: Colors.blue),
             ),
-            showIcon
+            noIcon
                 ? Container()
                 : Icon(
                     Icons.account_circle_outlined,

@@ -68,7 +68,9 @@ class _HomePharmacistState extends State<HomePharmacist> {
                       borderedContainer(
                           size: size,
                           label: 'Transactions',
-                          iconData: Icons.wallet_membership),
+                          iconData: Icons.wallet_membership,
+                          onTap: () => Navigator.pushNamed(
+                              context, RouteConfig.transactions)),
                     ],
                   ),
                   SizedBox(height: 10),
@@ -102,6 +104,8 @@ class _HomePharmacistState extends State<HomePharmacist> {
                 bottomNavItem(label: 'Home', iconData: Icons.home_outlined),
                 bottomNavItem(
                     label: 'Transactions',
+                    onTap: () =>
+                        Navigator.pushNamed(context, RouteConfig.transactions),
                     iconData: Icons.wallet_membership_outlined),
                 bottomNavItem(
                     label: 'Payment Details',
