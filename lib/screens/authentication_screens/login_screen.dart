@@ -18,14 +18,16 @@ class _LoginScreenState extends State<LoginScreen> {
   bool obscurePassword = true;
 
   void loginSubmitFn() {
-    authService
-        .login(userNameTextEditingController.text,
-            passwordTextEditingController.text)
-        .then((value) {
-      if (value != null) {
-        Navigator.popAndPushNamed(context, RouteConfig.homePharmacist);
-      }
-    });
+    if (loginFormKey.currentState.validate()) {
+      authService
+          .login(userNameTextEditingController.text,
+              passwordTextEditingController.text)
+          .then((value) {
+        if (value != null) {
+          Navigator.popAndPushNamed(context, RouteConfig.homePharmacist);
+        }
+      });
+    }
   }
 
   @override
@@ -56,8 +58,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     RoundedTextField(
                       showSuffix: false,
                       controller: userNameTextEditingController,
-                      hintText: 'Username',
+                      hintText: 'Email Address',
                       obscureText: false,
+                      validator: (value) {
+                        if (value.isEmpty) return 'email is required';
+                        if (value.length < 4)
+                          return 'Email must be more than 3 characters';
+                        return null;
+                      },
                     ),
                     SizedBox(height: 20),
                     RoundedTextField(
@@ -65,6 +73,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: passwordTextEditingController,
                       hintText: 'Password',
                       obscureText: true,
+                      validator: (value) {
+                        if (value.isEmpty) return 'Password is required';
+                        if (value.length < 4)
+                          return 'Password must be more than 3 characters';
+                        return null;
+                      },
                     ),
                     SizedBox(height: 20),
                     Selector<AuthService, bool>(
