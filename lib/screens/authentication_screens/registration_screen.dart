@@ -15,6 +15,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
   TextEditingController firstNameTextEditingController =
       TextEditingController();
   TextEditingController lastNameTextEditingController = TextEditingController();
@@ -49,20 +50,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
 // TODO: new ui has some missing variables;
   registerBtnFn() async {
-    await authService
-        .signUp(
-      country: selectedCountry,
-      email: emailTextEditingController.text,
-      firstName: firstNameTextEditingController.text,
-      lastName: lastNameTextEditingController.text,
-      password: passwordTextEditingController.text,
-    )
-        .then((response) {
-      Navigator.pushReplacementNamed(context, RouteConfig.addBeneficiary);
-    });
-    // Navigator.pushReplacementNamed(context, RouteConfig.addPayment);
-
-    // save step
+    if (registrationFormKey.currentState.validate()) {
+      await authService
+          .signUp(
+        country: selectedCountry,
+        email: emailTextEditingController.text,
+        firstName: firstNameTextEditingController.text,
+        lastName: lastNameTextEditingController.text,
+        password: passwordTextEditingController.text,
+      )
+          .then((response) {
+        Navigator.pushReplacementNamed(context, RouteConfig.addBeneficiary);
+      });
+    }
   }
 
   @override
@@ -71,81 +71,144 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     return Scaffold(
       body: SafeArea(
-          child: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          Column(
-            children: [
-              CustomAppBar(
-                title: 'Supporter Registration',
-                noIcon: true,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: ListView(
-                    children: [
-                      SizedBox(height: spacing / 2),
-                      RoundedTextField(
-                        showSuffix: false,
-                        controller: firstNameTextEditingController,
-                        hintText: 'First Name',
-                        onChanged: (value) => print('API guys to do things'),
-                        obscureText: false,
-                      ),
-                      SizedBox(height: spacing),
-                      RoundedTextField(
-                        showSuffix: false,
-                        controller: lastNameTextEditingController,
-                        hintText: 'Last Name',
-                        onChanged: (value) => print('API guys to do things'),
-                        obscureText: false,
-                      ),
-                      SizedBox(height: spacing),
-                      RoundedTextField(
-                        showSuffix: false,
-                        controller: emailTextEditingController,
-                        hintText: 'Email Address',
-                        onChanged: (value) => print('API guys to do things'),
-                        obscureText: false,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      SizedBox(height: spacing),
-                      RoundedTextField(
-                        showSuffix: true,
-                        controller: passwordTextEditingController,
-                        hintText: 'Password',
-                        onChanged: (value) => print('API guys to do things'),
-                        obscureText: true,
-                      ),
-                      SizedBox(height: spacing),
-                      RoundedTextField(
-                        showSuffix: true,
-                        controller: confirmPasswordTextEditingController,
-                        hintText: 'Confirm Password',
-                        onChanged: (value) => print('API guys to do things'),
-                        obscureText: true,
-                      ),
-                      SizedBox(height: spacing),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 1.0,
-                                      style: BorderStyle.solid,
-                                      color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
+          child: Form(
+        key: registrationFormKey,
+        child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            Column(
+              children: [
+                CustomAppBar(
+                  title: 'Supporter Registration',
+                  noIcon: true,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: ListView(
+                      children: [
+                        SizedBox(height: spacing / 2),
+                        RoundedTextField(
+                          showSuffix: false,
+                          controller: firstNameTextEditingController,
+                          hintText: 'First Name',
+                          onChanged: (value) => print('API guys to do things'),
+                          obscureText: false,
+                          validator: (value) {
+                            if (value.isEmpty) return 'First Name is required';
+                            if (value.length < 4)
+                              return 'Name must be more than 3 characters';
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: spacing),
+                        RoundedTextField(
+                          showSuffix: false,
+                          controller: lastNameTextEditingController,
+                          hintText: 'Last Name',
+                          onChanged: (value) => print('API guys to do things'),
+                          obscureText: false,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Last name is required';
+                            if (value.length < 4)
+                              return 'Password must be more than 3 characters';
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: spacing),
+                        RoundedTextField(
+                          showSuffix: false,
+                          controller: emailTextEditingController,
+                          hintText: 'Email Address',
+                          onChanged: (value) => print('API guys to do things'),
+                          obscureText: false,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Email is required';
+                            if (value.length < 4)
+                              return 'Email must be more than 3 characters';
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: spacing),
+                        RoundedTextField(
+                          showSuffix: true,
+                          controller: passwordTextEditingController,
+                          hintText: 'Password',
+                          onChanged: (value) => print('API guys to do things'),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Password is required';
+                            if (value.length < 4)
+                              return 'Password must be more than 3 characters';
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: spacing),
+                        RoundedTextField(
+                          showSuffix: true,
+                          controller: confirmPasswordTextEditingController,
+                          hintText: 'Confirm Password',
+                          onChanged: (value) => print('API guys to do things'),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Password is required';
+                            if (value.length < 4)
+                              return 'Password must be more than 3 characters';
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: spacing),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        width: 1.0,
+                                        style: BorderStyle.solid,
+                                        color: Colors.grey),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5)),
+                                  ),
+                                ),
+                                child: DropdownButton<String>(
+                                  value: selectedCountry,
+                                  style: TextStyle(color: Colors.white),
+                                  items: countries
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  hint: Text(
+                                    "Country",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                  onChanged: (String value) {
+                                    setState(() {
+                                      selectedCountry = value;
+                                    });
+                                  },
                                 ),
                               ),
+                            ),
+                            SizedBox(width: 40),
+                            Expanded(
                               child: DropdownButton<String>(
-                                value: selectedCountry,
+                                focusColor: Colors.white,
+                                value: selectedCurrency,
                                 style: TextStyle(color: Colors.white),
-                                items: countries.map<DropdownMenuItem<String>>(
+                                iconEnabledColor: Colors.grey,
+                                items: currencies.map<DropdownMenuItem<String>>(
                                     (String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -156,104 +219,75 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   );
                                 }).toList(),
                                 hint: Text(
-                                  "Country",
+                                  "Currency",
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 14),
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
                                 ),
                                 onChanged: (String value) {
                                   setState(() {
-                                    selectedCountry = value;
+                                    selectedCurrency = value;
                                   });
                                 },
                               ),
                             ),
-                          ),
-                          SizedBox(width: 40),
-                          Expanded(
-                            child: DropdownButton<String>(
-                              focusColor: Colors.white,
-                              value: selectedCurrency,
-                              style: TextStyle(color: Colors.white),
-                              iconEnabledColor: Colors.grey,
-                              items: currencies.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
+                          ],
+                        ),
+                        SizedBox(height: spacing),
+                        RoundedTextField(
+                          showSuffix: false,
+                          controller: phoneNumberTextEditingController,
+                          hintText: 'Phone Number',
+                          onChanged: (value) => print('API guys to do things'),
+                          obscureText: false,
+                          keyboardType: TextInputType.number,
+                        ),
+                        SizedBox(height: spacing),
+                        RoundedTextField(
+                          showSuffix: false,
+                          controller: phoneNumberTextEditingController,
+                          hintText: 'Address',
+                          onChanged: (value) => print('API guys to do things'),
+                          obscureText: false,
+                          keyboardType: TextInputType.text,
+                        ),
+                        SizedBox(height: spacing),
+                        RoundedTextField(
+                          showSuffix: false,
+                          controller: phoneNumberTextEditingController,
+                          hintText: 'City',
+                          onChanged: (value) => print('API guys to do things'),
+                          obscureText: false,
+                          keyboardType: TextInputType.text,
+                        ),
+                        SizedBox(height: spacing),
+                        Selector<AuthService, bool>(
+                            selector: (context, authservice) =>
+                                authservice.isSigningUp,
+                            builder: (context, isSiginingUp, _) {
+                              return CenteredButton(
+                                size: size,
+                                onPressed: registerBtnFn,
+                                child: CircularMaterialSpinner(
+                                  isBtn: true,
+                                  loading: isSiginingUp,
                                   child: Text(
-                                    value,
-                                    style: TextStyle(color: Colors.black),
+                                    'REGISTER',
+                                    style: TextStyle(
+                                        fontSize: 18.0, color: Colors.white),
                                   ),
-                                );
-                              }).toList(),
-                              hint: Text(
-                                "Currency",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
                                 ),
-                              ),
-                              onChanged: (String value) {
-                                setState(() {
-                                  selectedCurrency = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: spacing),
-                      RoundedTextField(
-                        showSuffix: false,
-                        controller: phoneNumberTextEditingController,
-                        hintText: 'Phone Number',
-                        onChanged: (value) => print('API guys to do things'),
-                        obscureText: false,
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(height: spacing),
-                      RoundedTextField(
-                        showSuffix: false,
-                        controller: phoneNumberTextEditingController,
-                        hintText: 'Address',
-                        onChanged: (value) => print('API guys to do things'),
-                        obscureText: false,
-                        keyboardType: TextInputType.text,
-                      ),
-                      SizedBox(height: spacing),
-                      RoundedTextField(
-                        showSuffix: false,
-                        controller: phoneNumberTextEditingController,
-                        hintText: 'City',
-                        onChanged: (value) => print('API guys to do things'),
-                        obscureText: false,
-                        keyboardType: TextInputType.text,
-                      ),
-                      SizedBox(height: spacing),
-                      Selector<AuthService, bool>(
-                          selector: (context, authservice) =>
-                              authservice.isSigningUp,
-                          builder: (context, isSiginingUp, _) {
-                            return CenteredButton(
-                              size: size,
-                              onPressed: registerBtnFn,
-                              child: CircularMaterialSpinner(
-                                isBtn: true,
-                                loading: isSiginingUp,
-                                child: Text(
-                                  'REGISTER',
-                                  style: TextStyle(
-                                      fontSize: 18.0, color: Colors.white),
-                                ),
-                              ),
-                            );
-                          }),
-                    ],
+                              );
+                            }),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       )),
     );
   }
