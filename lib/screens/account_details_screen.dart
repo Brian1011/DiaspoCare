@@ -47,7 +47,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                         child: Text('EDIT PROFILE'),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: logout,
                         child: Text(
                           '  SIGN OUT',
                           style: TextStyle(color: Colors.red),
