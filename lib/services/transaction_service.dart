@@ -13,7 +13,9 @@ class TransactionService extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<TransactionModel> transactions = [];
   Future loadSupporterTransactions() {
+    transactions = [];
     isGettingSupporterTransactions = true;
     return api.getSupporterTransaction().then((response) {
       var payload = response.data;
@@ -26,7 +28,6 @@ class TransactionService extends ChangeNotifier {
     });
   }
 
-  List<TransactionModel> transactions = [];
   void _saveTransactions(payload) {
     payload.forEach((transaction) {
       transactions.add(TransactionModel.fromMap(transaction));
