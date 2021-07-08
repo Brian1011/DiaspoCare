@@ -34,8 +34,9 @@ class _HomePharmacistState extends State<HomePharmacist> {
                           'assets/DC_Logo_name.png',
                           width: size.width * 0.70,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 15),
                         Text('Welcome'),
+                        SizedBox(height: 5),
                         Text('${authService?.userModel?.name ?? ''}'),
                         Spacer(),
                         Row(
@@ -109,6 +110,8 @@ class _HomePharmacistState extends State<HomePharmacist> {
                     iconData: Icons.wallet_membership_outlined),
                 bottomNavItem(
                     label: 'Payment Details',
+                    onTap: () => Navigator.pushNamed(
+                        context, RouteConfig.addPharBankDetails),
                     iconData: Icons.credit_card_outlined),
                 bottomNavItem(
                   label: 'Account',
