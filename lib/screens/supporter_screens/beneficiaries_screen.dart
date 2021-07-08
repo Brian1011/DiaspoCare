@@ -154,7 +154,7 @@ class BeneficiariesTab extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     )),
                 Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Text(
                       'Supporter',
                       style: TextStyle(color: Colors.white),
@@ -199,7 +199,7 @@ class BeneficiariesTab extends StatelessWidget {
                                 child: Text(
                                     "${beneficiary?.user?.fullName ?? ''}")),
                             Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Text(
                                     '${beneficiary?.profile?.supporter ?? ''}')),
                             Expanded(
