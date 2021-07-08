@@ -1,5 +1,6 @@
 import 'package:diaspo_care/data/models/beneficiary_model.dart';
 import 'package:diaspo_care/services/beneficiary_service.dart';
+import 'package:diaspo_care/services/transaction_service.dart';
 import 'package:diaspo_care/widgets/circular_material_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
 
   refresh() {
     beneficiaryService.loadBeneficiaries();
+    transactionService.loadSupporterTransactions();
   }
 
   int tab = 1;

@@ -24,6 +24,9 @@ class TransactionModel {
         entryTime: DateTime.parse(transaction['creation']),
         status: transaction['status'],
         amount: transaction['total_amount'],
-        beneficiary: transaction['beneficiary']);
+        beneficiary: transaction['beneficiary'],
+        transactionCost: transaction['transaction_cost'],
+        vendor: transaction['beneficiary']['user']['email'],
+        vendorEmail: transaction['beneficiary']['user']['full_name']);
   }
 }

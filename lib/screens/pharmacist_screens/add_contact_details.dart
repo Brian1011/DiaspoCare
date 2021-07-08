@@ -1,13 +1,10 @@
-import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/services/beneficiary_service.dart';
 import 'package:diaspo_care/services/country_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
-import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:diaspo_care/widgets/underlined_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:diaspo_care/routes.dart';
 
 class AddContactDetails extends StatefulWidget {
   @override
@@ -15,10 +12,14 @@ class AddContactDetails extends StatefulWidget {
 }
 
 class _AddContactDetailsState extends State<AddContactDetails> {
-  TextEditingController fullName1TextEditingController = TextEditingController();
-  TextEditingController fullName2TextEditingController = TextEditingController();
-  TextEditingController designation1TextEditingController = TextEditingController();
-  TextEditingController designation2TextEditingController = TextEditingController();
+  TextEditingController fullName1TextEditingController =
+      TextEditingController();
+  TextEditingController fullName2TextEditingController =
+      TextEditingController();
+  TextEditingController designation1TextEditingController =
+      TextEditingController();
+  TextEditingController designation2TextEditingController =
+      TextEditingController();
   TextEditingController phoneNo1TextEditingController = TextEditingController();
   TextEditingController phoneNo2TextEditingController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -103,7 +104,6 @@ class _AddContactDetailsState extends State<AddContactDetails> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -121,7 +121,10 @@ class _AddContactDetailsState extends State<AddContactDetails> {
             child: ListView(
               children: [
                 SizedBox(height: spacing / 2),
-                Text('Alternative Contact 1', style: TextStyle(fontWeight: FontWeight.bold),),
+                Text(
+                  'Alternative Contact 1',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 UnderlinedTextField(
                   controller: fullName1TextEditingController,
                   hintText: 'Full Names',
@@ -158,7 +161,10 @@ class _AddContactDetailsState extends State<AddContactDetails> {
                   },
                 ),
                 SizedBox(height: spacing),
-                Text('Alternative Contact 1', style: TextStyle(fontWeight: FontWeight.bold),),
+                Text(
+                  'Alternative Contact 1',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 UnderlinedTextField(
                   controller: fullName2TextEditingController,
                   hintText: 'Full Names',
