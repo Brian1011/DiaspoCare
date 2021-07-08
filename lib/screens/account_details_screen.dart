@@ -1,3 +1,4 @@
+import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,11 @@ class AccountDetailsScreen extends StatefulWidget {
 }
 
 class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
+  logout() {
+    authService.logout();
+    Navigator.of(context).pushReplacementNamed(RouteConfig.login);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -41,10 +47,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                         child: Text('EDIT PROFILE'),
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(RouteConfig.login);
-                        },
+                        onTap: () {},
                         child: Text(
                           '  SIGN OUT',
                           style: TextStyle(color: Colors.red),

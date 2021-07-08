@@ -9,6 +9,7 @@ class AuthService extends ChangeNotifier {
   bool get isLoggingIn => _isLoggingIn;
   CookieModel get userCookie => db.cookieBox.values.first;
   bool get cookieExist => db.cookieBox.isNotEmpty;
+  bool get userLoggedIn => db.authUserBox.isNotEmpty;
 
   set isLoggingIn(bool val) {
     _isLoggingIn = val;
@@ -105,6 +106,7 @@ class AuthService extends ChangeNotifier {
 
   clearCookie() {
     db.cookieBox.clear();
+    db.authUserBox.clear();
   }
 
   logout() {
