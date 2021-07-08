@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    Key key,
-  }) : super(key: key);
+  CustomAppBar({@required this.title, this.showIcon});
+  String title;
+  bool showIcon = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +21,18 @@ class CustomAppBar extends StatelessWidget {
           children: [
             Image.asset('assets/DC_logo_small.jpg', height: 30),
             Text(
-              'Supporter Registration',
+              title,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: Colors.blue),
             ),
-            Icon(
-              Icons.account_circle_outlined,
-              size: 30,
-            )
+            showIcon
+                ? Container()
+                : Icon(
+                    Icons.account_circle_outlined,
+                    size: 30,
+                  )
           ],
         ));
   }

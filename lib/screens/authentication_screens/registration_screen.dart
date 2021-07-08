@@ -76,7 +76,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         children: [
           Column(
             children: [
-              CustomAppBar(),
+              CustomAppBar(
+                title: 'Supporter Registration',
+                showIcon: true,
+              ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(10),
