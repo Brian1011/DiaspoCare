@@ -1,4 +1,5 @@
 import 'package:diaspo_care/routes.dart';
+import 'package:diaspo_care/services/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,7 @@ class _HomePharmacistState extends State<HomePharmacist> {
                         ),
                         SizedBox(height: 20),
                         Text('Welcome'),
-                        Text('{First Name} {Last Name}'),
+                        Text('${authService?.userModel?.name ?? ''}'),
                         Spacer(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,

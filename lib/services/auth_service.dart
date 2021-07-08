@@ -10,6 +10,7 @@ class AuthService extends ChangeNotifier {
   CookieModel get userCookie => db.cookieBox.values.first;
   bool get cookieExist => db.cookieBox.isNotEmpty;
   bool get userLoggedIn => db.authUserBox.isNotEmpty;
+  AuthUserModel get userModel => db.authUserBox.values.first;
 
   set isLoggingIn(bool val) {
     _isLoggingIn = val;
