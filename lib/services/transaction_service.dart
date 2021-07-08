@@ -18,9 +18,10 @@ class TransactionService extends ChangeNotifier {
     return api.getSupporterTransaction().then((response) {
       var payload = response.data;
       _saveTransactions(payload['message']);
-    }).catchError((error) {
+    }).catchError((error, stack) {
       isGettingSupporterTransactions = false;
       print('error occured while loading transactions $error');
+      print(stack);
       Fluttertoast.showToast(msg: "Couldn't Load Transactions");
     });
   }

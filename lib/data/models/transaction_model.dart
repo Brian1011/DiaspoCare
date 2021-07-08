@@ -20,13 +20,24 @@ class TransactionModel {
 
   factory TransactionModel.fromMap(transaction) {
     return TransactionModel(
-        id: transaction['name'],
-        entryTime: DateTime.parse(transaction['creation']),
-        status: transaction['status'],
-        amount: transaction['total_amount'],
-        beneficiary: transaction['beneficiary'],
-        transactionCost: transaction['transaction_cost'],
-        vendor: transaction['beneficiary']['user']['email'],
-        vendorEmail: transaction['beneficiary']['user']['full_name']);
+      id: transaction['name'],
+      entryTime: transaction['creation'] == null
+          ? null
+          : DateTime.parse(transaction['creation']),
+      status: transaction['status'],
+      amount: transaction['total_amount'],
+      beneficiary: transaction['beneficiary'],
+      transactionCost: transaction['transaction_cost'],
+      vendor: transaction['beneficiary'] != null
+          ? transaction['beneficiary']['user'] != null
+              ? transaction['beneficiary']['user']['full_name']
+              : null
+          : null,
+      vendorEmail: transaction['beneficiary'] != null
+          ? transaction['beneficiary']['user'] != null
+              ? transaction['beneficiary']['user']['email']
+              : null
+          : null,
+    );
   }
 }
