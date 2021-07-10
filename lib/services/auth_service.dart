@@ -3,6 +3,8 @@ import 'package:diaspo_care/data/db.dart';
 import 'package:diaspo_care/data/models/auth_user_model.dart';
 import 'package:diaspo_care/data/models/cookie_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AuthService extends ChangeNotifier {
   bool _isLoggingIn = false;
@@ -26,6 +28,11 @@ class AuthService extends ChangeNotifier {
     }).catchError((error) {
       isLoggingIn = false;
       print('error occured during user login $error');
+      Fluttertoast.showToast(
+          msg: "Invalid login credentials",
+          backgroundColor: Colors.black,
+          textColor: Colors.white);
+      return throw error;
     });
   }
 

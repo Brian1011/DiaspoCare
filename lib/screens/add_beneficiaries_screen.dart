@@ -133,7 +133,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
         print(value);
         Navigator.pushReplacementNamed(context, RouteConfig.homePharmacist);
       }).catchError((error) {
-        Navigator.pushReplacementNamed(context, RouteConfig.homePharmacist);
+        //Navigator.pushReplacementNamed(context, RouteConfig.homePharmacist);
         print('******************ERROR');
         print(error);
       });
