@@ -131,9 +131,9 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
       await beneficiaryService.addNewBeneficiary(data: data).then((value) {
         print('******************VALUE');
         print(value);
-        Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
+        Navigator.pushReplacementNamed(context, RouteConfig.homePharmacist);
       }).catchError((error) {
-        Navigator.pushReplacementNamed(context, RouteConfig.beneficiaries);
+        Navigator.pushReplacementNamed(context, RouteConfig.homePharmacist);
         print('******************ERROR');
         print(error);
       });
