@@ -169,6 +169,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
               children: [
                 SizedBox(height: spacing / 2),
                 RoundedTextField(
+                  showSuffix: false,
                   controller: firstNameTextEditingController,
                   hintText: 'First Name',
                   obscureText: false,
@@ -181,6 +182,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                 ),
                 SizedBox(height: spacing),
                 RoundedTextField(
+                  showSuffix: false,
                   controller: middleTextEditingController,
                   hintText: 'Middle Name',
                   obscureText: false,
@@ -193,6 +195,8 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                 ),
                 SizedBox(height: spacing),
                 RoundedTextField(
+                  showSuffix: false,
+
                   controller: lastNameTextEditingController,
                   hintText: 'Last Name',
                   obscureText: false,
@@ -209,6 +213,7 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
                   onTap: pickDateOfBirth,
                   child: AbsorbPointer(
                     child: RoundedTextField(
+                      showSuffix: false,
                       controller: dateOfBirthController,
                       hintText: 'Date of birth',
                       obscureText: false,
