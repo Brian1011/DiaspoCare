@@ -17,14 +17,16 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordTextEditingController = TextEditingController();
 
   void loginSubmitFn() {
-    authService
-        .login(userNameTextEditingController.text,
-            passwordTextEditingController.text)
-        .then((value) {
-      if (value != null) {
-        Navigator.popAndPushNamed(context, RouteConfig.homePharmacist);
-      }
-    });
+    if (loginFormKey.currentState.validate()) {
+      authService
+          .login(userNameTextEditingController.text,
+              passwordTextEditingController.text)
+          .then((value) {
+        if (value != null) {
+          Navigator.popAndPushNamed(context, RouteConfig.homePharmacist);
+        }
+      });
+    }
   }
 
   @override
