@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  CustomAppBar({@required this.title, this.noIcon});
+  CustomAppBar({@required this.title, this.noIcon, this.goBack = false});
   String title;
+  bool goBack;
   bool noIcon = false;
 
   @override
@@ -19,7 +20,17 @@ class CustomAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset('assets/DC_logo_small.jpg', height: 30),
+            goBack
+                ? Row(
+                    children: [
+                      GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Icon(Icons.arrow_back)),
+                      SizedBox(width: 20),
+                      Image.asset('assets/DC_logo_small.jpg', height: 30),
+                    ],
+                  )
+                : Image.asset('assets/DC_logo_small.jpg', height: 30),
             Text(
               title,
               style: TextStyle(
