@@ -1,3 +1,5 @@
+import 'package:diaspo_care/data/models/transaction_model.dart';
+import 'package:diaspo_care/util/time_util.dart';
 import 'package:flutter/material.dart';
 
 class TransactionDetailScreen extends StatefulWidget {
@@ -9,6 +11,10 @@ class TransactionDetailScreen extends StatefulWidget {
 class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    Map<String, TransactionModel> arguments =
+        ModalRoute.of(context).settings.arguments;
+
+    TransactionModel transaction = arguments['transaction'];
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -32,9 +38,11 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Transaction ID: {wekelea hapa}'),
-                      Text('Time: {wekelea hapa}'),
-                      Text('Amount: KES {wekelea hapa}'),
+                      Text('Transaction ID: ${transaction.transaction.basket}'),
+                      Text(
+                          'Time: ${transaction.transaction.creation == null ? '' : displayDatesWithTime(transaction.transaction.creation)}'),
+                      Text(
+                          'Amount: KES ${transaction.transaction.totalAmount}'),
                     ],
                   ),
                   Spacer(),
@@ -45,7 +53,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                         'Status',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text('Completed'),
+                      Text('${transaction.transaction.status}'),
                     ],
                   ),
                 ],
@@ -59,7 +67,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(width: 10),
-                Text('Jon Snow'),
+                Text('${transaction.parties.beneficiary.user.fullName}'),
               ],
             ),
             SizedBox(height: 20),
@@ -71,9 +79,11 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('{wekelea Location hapa}'),
-                Text('Email: {wekelea hapa}'),
-                Text('Phone: KES {wekelea hapa}'),
+                //location was not provided
+                // Text('{wekelea Location hapa}'),
+                Text('Email: ${transaction.parties.vendor.user.email}'),
+                Text(
+                    'Phone: ${transaction.parties.vendor.profile.finserveRecipientPhoneNumber}'),
               ],
             ),
             SizedBox(height: 20),
@@ -85,7 +95,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('{wekelea hapa if they exist}'),
+                // Text('{wekelea hapa if they exist}'),
               ],
             ),
             SizedBox(height: 20),
@@ -94,29 +104,29 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            Container(
-              //TODO: Make height to change according to items in the list
-              height: size.height * 0.1,
-              child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        Text('Whatever $index'),
-                        Spacer(),
-                        Text('KES ${1000 * (index + 3 / (index + 1))}')
-                      ],
-                    );
-                  }),
-            ),
+            // Container(
+            //   //TODO: Make height to change according to items in the list
+            //   height: size.height * 0.1,
+            //   child: ListView.builder(
+            //       itemCount: 5,
+            //       itemBuilder: (context, index) {
+            //         return Row(
+            //           children: [
+            //             Text('Whatever $index'),
+            //             Spacer(),
+            //             Text('KES ${1000 * (index + 3 / (index + 1))}')
+            //           ],
+            //         );
+            //       }),
+            // ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  'Total   KES {**,***}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )
+                // Text(
+                //   'Total   KES {**,***}',
+                //   style: TextStyle(fontWeight: FontWeight.bold),
+                // )
               ],
             )
           ],

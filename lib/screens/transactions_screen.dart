@@ -5,6 +5,8 @@ import 'package:diaspo_care/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../routes.dart';
+
 class TransactionsScreen extends StatefulWidget {
   @override
   _TransactionsScreenState createState() => _TransactionsScreenState();
@@ -91,27 +93,36 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                               width: 1, color: Colors.black12),
                                         ),
                                       ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                  '${transaction?.transaction?.basket}')),
-                                          Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                  '${transaction?.parties?.beneficiary?.user?.fullName}')),
-                                          Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                  '${transaction?.transaction?.transactionCost}')),
-                                          Expanded(
-                                              flex: 1,
-                                              child: FittedBox(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).pushNamed(
+                                              RouteConfig.transactionDetail,
+                                              arguments: {
+                                                'transaction': transaction
+                                              });
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                                flex: 2,
                                                 child: Text(
-                                                    '${transaction?.transaction?.status}'),
-                                              )),
-                                        ],
+                                                    '${transaction?.transaction?.basket}')),
+                                            Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                    '${transaction?.parties?.beneficiary?.user?.fullName}')),
+                                            Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                    '${transaction?.transaction?.transactionCost}')),
+                                            Expanded(
+                                                flex: 1,
+                                                child: FittedBox(
+                                                  child: Text(
+                                                      '${transaction?.transaction?.status}'),
+                                                )),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   }),
