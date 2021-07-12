@@ -84,6 +84,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 CustomAppBar(
                   title: 'Supporter Registration',
                   noIcon: true,
+                  goBack: true,
                 ),
                 Expanded(
                   child: Padding(
