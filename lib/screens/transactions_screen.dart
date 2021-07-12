@@ -27,6 +27,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         child: Column(
           children: [
             CustomAppBar(
+              goBack: true,
               title: 'Transactions',
               noIcon: true,
             ),
@@ -101,26 +102,57 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                                 'transaction': transaction
                                               });
                                         },
-                                        child: Row(
+                                        child: Column(
                                           children: [
-                                            Expanded(
-                                                flex: 2,
-                                                child: Text(
-                                                    '${transaction?.transaction?.basket}')),
-                                            Expanded(
-                                                flex: 2,
-                                                child: Text(
-                                                    '${transaction?.parties?.beneficiary?.user?.fullName}')),
-                                            Expanded(
-                                                flex: 2,
-                                                child: Text(
-                                                    '${transaction?.transaction?.transactionCost}')),
-                                            Expanded(
-                                                flex: 1,
-                                                child: FittedBox(
-                                                  child: Text(
-                                                      '${transaction?.transaction?.status}'),
-                                                )),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                        '${transaction?.transaction?.basket}')),
+                                                Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                        '${transaction?.parties?.beneficiary?.user?.fullName}')),
+                                                Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                        '${transaction?.transaction?.transactionCost}')),
+                                                Expanded(
+                                                    flex: 1,
+                                                    child: FittedBox(
+                                                      child: Text(
+                                                          '${transaction?.transaction?.status}'),
+                                                    )),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  onPressed: () {},
+                                                  child: Text('Approve'),
+                                                  style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all<Color>(
+                                                                Colors.green),
+                                                  ),
+                                                ),
+                                                SizedBox(width: 20),
+                                                ElevatedButton(
+                                                  onPressed: () {},
+                                                  child: Text('Decline'),
+                                                  style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all<Color>(
+                                                                Colors.red),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
                                           ],
                                         ),
                                       ),
