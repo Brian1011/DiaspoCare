@@ -28,6 +28,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController passwordTextEditingController = TextEditingController();
   TextEditingController confirmPasswordTextEditingController =
       TextEditingController();
+  TextEditingController addressTextEditingController = TextEditingController();
+  TextEditingController cityTextEditingController = TextEditingController();
 
   int radioValue;
   double spacing = 10;
@@ -275,7 +277,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         SizedBox(height: spacing),
                         RoundedTextField(
                           showSuffix: false,
-                          controller: phoneNumberTextEditingController,
+                          controller: addressTextEditingController,
                           hintText: 'Address',
                           onChanged: (value) => print('API guys to do things'),
                           obscureText: false,
@@ -284,7 +286,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         SizedBox(height: spacing),
                         RoundedTextField(
                           showSuffix: false,
-                          controller: phoneNumberTextEditingController,
+                          controller: cityTextEditingController,
                           hintText: 'City',
                           onChanged: (value) => print('API guys to do things'),
                           obscureText: false,
