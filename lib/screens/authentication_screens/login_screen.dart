@@ -2,7 +2,7 @@ import 'package:diaspo_care/routes.dart';
 import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/circular_material_spinner.dart';
-import 'package:diaspo_care/widgets/underlined_textfield.dart';
+import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,16 +15,19 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   TextEditingController userNameTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  bool obscurePassword = true;
 
   void loginSubmitFn() {
-    authService
-        .login(userNameTextEditingController.text,
-            passwordTextEditingController.text)
-        .then((value) {
-      if (value != null) {
-        Navigator.popAndPushNamed(context, RouteConfig.homePharmacist);
-      }
-    });
+    if (loginFormKey.currentState.validate()) {
+      authService
+          .login(userNameTextEditingController.text,
+              passwordTextEditingController.text)
+          .then((value) {
+        if (value != null) {
+          Navigator.popAndPushNamed(context, RouteConfig.homePharmacist);
+        }
+      });
+    }
   }
 
   @override
@@ -52,18 +55,30 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 20),
-                    UnderlinedTextField(
+                    RoundedTextField(
+                      showSuffix: false,
                       controller: userNameTextEditingController,
-                      hintText: 'Username',
-                      onChanged: (value) => print('API guys to do things'),
+                      hintText: 'Email Address',
                       obscureText: false,
+                      validator: (value) {
+                        if (value.isEmpty) return 'email is required';
+                        if (value.length < 4)
+                          return 'Email must be more than 3 characters';
+                        return null;
+                      },
                     ),
                     SizedBox(height: 20),
-                    UnderlinedTextField(
+                    RoundedTextField(
+                      showSuffix: true,
                       controller: passwordTextEditingController,
                       hintText: 'Password',
-                      onChanged: (value) => print('API guys to do things'),
                       obscureText: true,
+                      validator: (value) {
+                        if (value.isEmpty) return 'Password is required';
+                        if (value.length < 4)
+                          return 'Password must be more than 3 characters';
+                        return null;
+                      },
                     ),
                     SizedBox(height: 20),
                     Selector<AuthService, bool>(

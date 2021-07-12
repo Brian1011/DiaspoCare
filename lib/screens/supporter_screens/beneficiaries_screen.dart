@@ -3,6 +3,7 @@ import 'package:diaspo_care/data/models/transaction_model.dart';
 import 'package:diaspo_care/services/beneficiary_service.dart';
 import 'package:diaspo_care/services/transaction_service.dart';
 import 'package:diaspo_care/widgets/circular_material_spinner.dart';
+import 'package:diaspo_care/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,48 +27,104 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
   int tab = 1;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Beneficiaries'),
-        actions: [IconButton(icon: Icon(Icons.refresh), onPressed: refresh)],
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
           children: [
-            Expanded(child: tab == 1 ? BeneficiariesTab() : TransactionsTab()),
-            Container(
-              padding: EdgeInsets.only(top: 10),
-              decoration: BoxDecoration(
-                  border: Border(
-                top: BorderSide(width: 1, color: Colors.black12),
-              )),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        tab = 1;
-                      });
-                    },
-                    child: Card(
-                      child: Text('Beneficiaries'),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        tab = 2;
-                      });
-                    },
-                    child: Card(
-                      child: Text('Transactions'),
-                    ),
-                  ),
-                ],
+            CustomAppBar(
+              title: tab == 1 ? 'Beneficiaries' : 'Transactions',
+              noIcon: true,
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Expanded(
+                        child:
+                            tab == 1 ? BeneficiariesTab() : TransactionsTab()),
+                    Container(
+                      padding: EdgeInsets.only(top: 10),
+                      decoration: BoxDecoration(
+                          border: Border(
+                        top: BorderSide(width: 1, color: Colors.black12),
+                      )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                tab = 1;
+                              });
+                            },
+                            child: Card(
+                              color: tab == 1
+                                  ? Colors.blue.withOpacity(0.9)
+                                  : Colors.white,
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 10),
+                                  Icon(
+                                    Icons.people_alt_outlined,
+                                    color:
+                                        tab == 1 ? Colors.white : Colors.black,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Beneficiaries',
+                                      style: TextStyle(
+                                        color: tab == 1
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                tab = 2;
+                              });
+                            },
+                            child: Card(
+                              color: tab == 2
+                                  ? Colors.blue.withOpacity(0.9)
+                                  : Colors.white,
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 10),
+                                  Icon(
+                                    Icons.credit_card,
+                                    color:
+                                        tab == 2 ? Colors.white : Colors.black,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Transactions',
+                                      style: TextStyle(
+                                        color: tab == 2
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -97,7 +154,7 @@ class BeneficiariesTab extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     )),
                 Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Text(
                       'Supporter',
                       style: TextStyle(color: Colors.white),
@@ -142,7 +199,7 @@ class BeneficiariesTab extends StatelessWidget {
                                 child: Text(
                                     "${beneficiary?.user?.fullName ?? ''}")),
                             Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Text(
                                     '${beneficiary?.profile?.supporter ?? ''}')),
                             Expanded(
