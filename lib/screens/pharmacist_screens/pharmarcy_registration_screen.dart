@@ -2,13 +2,12 @@ import 'package:diaspo_care/services/auth_service.dart';
 import 'package:diaspo_care/services/beneficiary_service.dart';
 import 'package:diaspo_care/services/country_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
-import 'package:diaspo_care/widgets/rounded_textfield.dart';
+
 import 'package:diaspo_care/widgets/underlined_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:diaspo_care/routes.dart';
 
 class PharmacyRegistrationScreen extends StatefulWidget {
   @override

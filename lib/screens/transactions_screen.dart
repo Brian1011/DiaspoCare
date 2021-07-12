@@ -13,7 +13,6 @@ class TransactionsScreen extends StatefulWidget {
 class _TransactionsScreenState extends State<TransactionsScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (transactionService.transactions.isEmpty)
       transactionService.loadSupporterTransactions();
