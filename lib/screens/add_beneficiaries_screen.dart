@@ -2,6 +2,7 @@ import 'package:diaspo_care/services/beneficiary_service.dart';
 import 'package:diaspo_care/services/country_service.dart';
 import 'package:diaspo_care/widgets/centered_button.dart';
 import 'package:diaspo_care/widgets/circular_material_spinner.dart';
+import 'package:diaspo_care/widgets/custom_appbar.dart';
 import 'package:diaspo_care/widgets/rounded_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -155,242 +156,258 @@ class _AddBeneficiariesScreenState extends State<AddBeneficiariesScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Beneficiaries'),
-        actions: [
-          IconButton(icon: Icon(Icons.refresh), onPressed: refresh),
-        ],
-      ),
-      body: Padding(
-          padding: EdgeInsets.all(10),
-          child: Form(
-            key: formKey,
-            child: ListView(
-              children: [
-                SizedBox(height: spacing / 2),
-                RoundedTextField(
-                  showSuffix: false,
-                  controller: firstNameTextEditingController,
-                  hintText: 'First Name',
-                  obscureText: false,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return "First name is required";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: spacing),
-                RoundedTextField(
-                  showSuffix: false,
-                  controller: middleTextEditingController,
-                  hintText: 'Middle Name',
-                  obscureText: false,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return "Middle name is required";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: spacing),
-                RoundedTextField(
-                  showSuffix: false,
+      body: SafeArea(
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              CustomAppBar(
+                goBack: true,
+                title: 'Add Beneficiaries',
+                noIcon: true,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: ListView(
+                    children: [
+                      SizedBox(height: spacing / 2),
+                      RoundedTextField(
+                        showSuffix: false,
+                        controller: firstNameTextEditingController,
+                        hintText: 'First Name',
+                        obscureText: false,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "First name is required";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: spacing),
+                      RoundedTextField(
+                        showSuffix: false,
+                        controller: middleTextEditingController,
+                        hintText: 'Middle Name',
+                        obscureText: false,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Middle name is required";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: spacing),
+                      RoundedTextField(
+                        showSuffix: false,
 
-                  controller: lastNameTextEditingController,
-                  hintText: 'Last Name',
-                  obscureText: false,
-                  //keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return "Last name is required";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: spacing),
-                GestureDetector(
-                  onTap: pickDateOfBirth,
-                  child: AbsorbPointer(
-                    child: RoundedTextField(
-                      showSuffix: false,
-                      controller: dateOfBirthController,
-                      hintText: 'Date of birth',
-                      obscureText: false,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Date of birth is required";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(height: spacing),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RadioListTile(
-                        value: 1,
-                        groupValue: selectedRadioTile,
-                        title: Text("Male"),
-                        onChanged: (val) {
-                          print("Radio Tile pressed $val");
-                          setSelectedRadioTile(val);
+                        controller: lastNameTextEditingController,
+                        hintText: 'Last Name',
+                        obscureText: false,
+                        //keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Last name is required";
+                          }
+                          return null;
                         },
-                        activeColor: Colors.blue,
-                        selected: true,
                       ),
-                    ),
-                    Expanded(
-                      child: RadioListTile(
-                        value: 2,
-                        groupValue: selectedRadioTile,
-                        title: Text("Female"),
-                        onChanged: (val) {
-                          print("Radio Tile pressed $val");
-                          setSelectedRadioTile(val);
-                        },
-                        activeColor: Colors.blue,
-                        selected: true,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: spacing),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(child: Consumer<CountryService>(
-                      builder: (context, countryService, _) {
-                        return Column(
-                          children: [
-                            Container(
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 1.0,
-                                      style: BorderStyle.solid,
-                                      color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                ),
-                              ),
-                              width: double.infinity,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 4),
-                                child: DropdownButton<String>(
-                                  value: selectedCountry,
-                                  style: TextStyle(color: Colors.white),
-                                  items: countryService.countries
-                                      .map<DropdownMenuItem<String>>((country) {
-                                    return DropdownMenuItem<String>(
-                                      value: country?.name ?? '',
-                                      child: Text(
-                                        country?.name ?? '',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  hint: Text(
-                                    "Country",
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 14),
-                                  ),
-                                  onChanged: (String value) {
-                                    setState(() {
-                                      selectedCountry = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            if (countryService.isGettingCountries)
-                              LinearProgressIndicator()
-                          ],
-                        );
-                      },
-                    )),
-                    SizedBox(width: 40),
-                    Expanded(child: Consumer<BeneficiaryService>(
-                      builder: (context, beneficiaryService, _) {
-                        return Column(
-                          children: [
-                            Container(
-                              decoration: ShapeDecoration(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      width: 1.0,
-                                      style: BorderStyle.solid,
-                                      color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                ),
-                              ),
-                              width: double.infinity,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 4),
-                                child: DropdownButton<String>(
-                                  value: selectedRelation,
-                                  style: TextStyle(color: Colors.white),
-                                  items: beneficiaryService.relations
-                                      .map<DropdownMenuItem<String>>(
-                                          (relation) {
-                                    return DropdownMenuItem<String>(
-                                      value: relation?.name ?? '',
-                                      child: Text(
-                                        relation?.name ?? '',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  hint: Text(
-                                    "Relation",
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 14),
-                                  ),
-                                  onChanged: (String value) {
-                                    setState(() {
-                                      selectedRelation = value;
-                                      relationTextEditingController.text =
-                                          value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            if (countryService.isGettingCountries)
-                              LinearProgressIndicator()
-                          ],
-                        );
-                      },
-                    )),
-                  ],
-                ),
-                SizedBox(height: spacing * 2),
-                Selector<BeneficiaryService, bool>(
-                  selector: (context, beneficiaryService) =>
-                      beneficiaryService.isLoadingBeneficiaryAdd,
-                  builder: (context, isLoadingBeneficiaryAdd, _) {
-                    print('beneficiary changed $isLoadingBeneficiaryAdd');
-                    return CenteredButton(
-                      size: size,
-                      onPressed: submitBeneficiary,
-                      child: CircularMaterialSpinner(
-                        isBtn: true,
-                        color: Colors.white,
-                        loading: isLoadingBeneficiaryAdd,
-                        child: Text(
-                          'Save',
-                          style: TextStyle(fontSize: 18.0, color: Colors.white),
+                      SizedBox(height: spacing),
+                      GestureDetector(
+                        onTap: pickDateOfBirth,
+                        child: AbsorbPointer(
+                          child: RoundedTextField(
+                            showSuffix: false,
+                            controller: dateOfBirthController,
+                            hintText: 'Date of birth',
+                            obscureText: false,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Date of birth is required";
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ),
-                    );
-                  },
+                      SizedBox(height: spacing),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: RadioListTile(
+                              value: 1,
+                              groupValue: selectedRadioTile,
+                              title: Text("Male"),
+                              onChanged: (val) {
+                                print("Radio Tile pressed $val");
+                                setSelectedRadioTile(val);
+                              },
+                              activeColor: Colors.blue,
+                              selected: true,
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile(
+                              value: 2,
+                              groupValue: selectedRadioTile,
+                              title: Text("Female"),
+                              onChanged: (val) {
+                                print("Radio Tile pressed $val");
+                                setSelectedRadioTile(val);
+                              },
+                              activeColor: Colors.blue,
+                              selected: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: spacing),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(child: Consumer<CountryService>(
+                            builder: (context, countryService, _) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            width: 1.0,
+                                            style: BorderStyle.solid,
+                                            color: Colors.grey),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5)),
+                                      ),
+                                    ),
+                                    width: double.infinity,
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 4),
+                                      child: DropdownButton<String>(
+                                        value: selectedCountry,
+                                        style: TextStyle(color: Colors.white),
+                                        items: countryService.countries
+                                            .map<DropdownMenuItem<String>>(
+                                                (country) {
+                                          return DropdownMenuItem<String>(
+                                            value: country?.name ?? '',
+                                            child: Text(
+                                              country?.name ?? '',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        hint: Text(
+                                          "Country",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                        onChanged: (String value) {
+                                          setState(() {
+                                            selectedCountry = value;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  if (countryService.isGettingCountries)
+                                    LinearProgressIndicator()
+                                ],
+                              );
+                            },
+                          )),
+                          SizedBox(width: 40),
+                          Expanded(child: Consumer<BeneficiaryService>(
+                            builder: (context, beneficiaryService, _) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            width: 1.0,
+                                            style: BorderStyle.solid,
+                                            color: Colors.grey),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5)),
+                                      ),
+                                    ),
+                                    width: double.infinity,
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 4),
+                                      child: DropdownButton<String>(
+                                        value: selectedRelation,
+                                        style: TextStyle(color: Colors.white),
+                                        items: beneficiaryService.relations
+                                            .map<DropdownMenuItem<String>>(
+                                                (relation) {
+                                          return DropdownMenuItem<String>(
+                                            value: relation?.name ?? '',
+                                            child: Text(
+                                              relation?.name ?? '',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        hint: Text(
+                                          "Relation",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                        onChanged: (String value) {
+                                          setState(() {
+                                            selectedRelation = value;
+                                            relationTextEditingController.text =
+                                                value;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  if (countryService.isGettingCountries)
+                                    LinearProgressIndicator()
+                                ],
+                              );
+                            },
+                          )),
+                        ],
+                      ),
+                      SizedBox(height: spacing * 2),
+                      Selector<BeneficiaryService, bool>(
+                        selector: (context, beneficiaryService) =>
+                            beneficiaryService.isLoadingBeneficiaryAdd,
+                        builder: (context, isLoadingBeneficiaryAdd, _) {
+                          print('beneficiary changed $isLoadingBeneficiaryAdd');
+                          return CenteredButton(
+                            size: size,
+                            onPressed: submitBeneficiary,
+                            child: CircularMaterialSpinner(
+                              isBtn: true,
+                              color: Colors.white,
+                              loading: isLoadingBeneficiaryAdd,
+                              child: Text(
+                                'Save',
+                                style: TextStyle(
+                                    fontSize: 18.0, color: Colors.white),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          )),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
