@@ -24,6 +24,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
         child: Column(
           children: [
             CustomAppBar(
+              goBack: true,
               title: 'Account Details',
               noIcon: false,
             ),

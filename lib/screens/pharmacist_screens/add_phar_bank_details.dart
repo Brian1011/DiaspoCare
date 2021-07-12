@@ -47,6 +47,7 @@ class _AddPharBankDetailsState extends State<AddPharBankDetails> {
         child: Column(
           children: [
             CustomAppBar(
+              goBack: true,
               title: 'Bank Details',
               noIcon: true,
             ),

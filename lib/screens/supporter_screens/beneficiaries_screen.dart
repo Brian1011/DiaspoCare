@@ -32,6 +32,7 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
         body: Column(
           children: [
             CustomAppBar(
+              goBack: true,
               title: tab == 1 ? 'Beneficiaries' : 'Transactions',
               noIcon: true,
             ),
