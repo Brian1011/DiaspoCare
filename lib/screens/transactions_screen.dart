@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:diaspo_care/data/models/transaction_model.dart';
 import 'package:diaspo_care/services/transaction_service.dart';
 import 'package:diaspo_care/widgets/circular_material_spinner.dart';
 import 'package:diaspo_care/widgets/custom_appbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../routes.dart';
@@ -13,6 +17,8 @@ class TransactionsScreen extends StatefulWidget {
 }
 
 class _TransactionsScreenState extends State<TransactionsScreen> {
+  static final DateFormat formatter = DateFormat('EEE,dd MMM yyyy').add_Hm();
+
   @override
   void initState() {
     super.initState();
@@ -43,41 +49,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         padding: EdgeInsets.all(10),
                         child: Column(
                           children: [
-                            Container(
-                              color: Colors.blue,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          'Trans ID',
-                                          style: TextStyle(color: Colors.white),
-                                        )),
-                                    Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          'Beneficiaries',
-                                          style: TextStyle(color: Colors.white),
-                                        )),
-                                    Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          'Amount',
-                                          style: TextStyle(color: Colors.white),
-                                        )),
-                                    Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          'Status',
-                                          style: TextStyle(color: Colors.white),
-                                        )),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 20),
+                            //SizedBox(height: 20),
                             Expanded(
                               child: ListView.builder(
                                   itemCount:
@@ -86,7 +58,6 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                     TransactionModel transaction =
                                         transactionService.transactions[index];
                                     return Container(
-                                      margin: EdgeInsets.only(bottom: 5),
                                       padding: EdgeInsets.all(5),
                                       decoration: BoxDecoration(
                                         border: Border(
@@ -103,54 +74,97 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                               });
                                         },
                                         child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Row(
                                               children: [
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Text(
-                                                        '${transaction?.transaction?.basket}')),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Text(
-                                                        '${transaction?.parties?.beneficiary?.user?.fullName}')),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Text(
-                                                        '${transaction?.transaction?.transactionCost}')),
-                                                Expanded(
-                                                    flex: 1,
-                                                    child: FittedBox(
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.primaries[
+                                                          Random().nextInt(
+                                                              Colors.primaries
+                                                                  .length)],
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  5))),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Center(
                                                       child: Text(
-                                                          '${transaction?.transaction?.status}'),
-                                                    )),
+                                                        '${transaction?.transaction?.name[0].toUpperCase()}${transaction?.transaction?.name[1].toUpperCase()}',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(width: 10),
+                                                Text(
+                                                    '${transaction?.transaction?.name}'),
+                                                Spacer(),
+                                                Text(
+                                                    '${formatter.format(transaction?.transaction?.creation)}'),
                                               ],
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                            SizedBox(height: 10),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                ElevatedButton(
-                                                  onPressed: () {},
-                                                  child: Text('Approve'),
-                                                  style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(
-                                                                Colors.green),
+                                                Row(children: [
+                                                  Text('Beneficiary'),
+                                                  SizedBox(width: 30),
+                                                  Text(
+                                                    '${transaction?.parties?.beneficiary?.user?.fullName}',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600),
                                                   ),
-                                                ),
-                                                SizedBox(width: 20),
-                                                ElevatedButton(
-                                                  onPressed: () {},
-                                                  child: Text('Decline'),
-                                                  style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(
-                                                                Colors.red),
+                                                ]),
+                                                Row(children: [
+                                                  Text('Amount      '),
+                                                  SizedBox(width: 30),
+                                                  Text(
+                                                    '${transaction?.transaction?.transactionCost}',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600),
                                                   ),
-                                                ),
+                                                ]),
+                                                Row(children: [
+                                                  Text('Pharmacy  '),
+                                                  SizedBox(width: 30),
+                                                  Text(
+                                                    '${transaction?.transaction?.owner}',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                ]),
+                                              ],
+                                            ),
+                                            SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pushNamed(
+                                                                RouteConfig
+                                                                    .transactionDetail,
+                                                                arguments: {
+                                                              'transaction':
+                                                                  transaction
+                                                            }),
+                                                    child:
+                                                        Text('View Details>')),
+                                                Spacer(),
+                                                Text(
+                                                    '${transaction?.transaction?.status}'),
                                               ],
                                             )
                                           ],
