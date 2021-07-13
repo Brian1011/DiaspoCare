@@ -38,11 +38,30 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Transaction ID: ${transaction.transaction.basket}'),
-                      Text(
-                          'Time: ${transaction.transaction.creation == null ? '' : displayDatesWithTime(transaction.transaction.creation)}'),
-                      Text(
-                          'Amount: KES ${transaction.transaction.totalAmount}'),
+                      Row(children: [
+                        Text('Transaction ID'),
+                        SizedBox(width: 15),
+                        Text(
+                          '${transaction.transaction.basket}',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ]),
+                      Row(children: [
+                        Text('Time                 '),
+                        SizedBox(width: 15),
+                        Text(
+                          '${transaction.transaction.creation == null ? '' : displayDatesWithTime(transaction.transaction.creation)}',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ]),
+                      Row(children: [
+                        Text('Amount            '),
+                        SizedBox(width: 15),
+                        Text(
+                          'KES${transaction.transaction.totalAmount}',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ]),
                     ],
                   ),
                   Spacer(),
@@ -104,6 +123,26 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
+            Row(
+              children: [
+                TextButton(
+                    onPressed: () => print('hello world'),
+                    child: Text(
+                      'ACCEPT',
+                      style: TextStyle(
+                          color: Colors.green, fontWeight: FontWeight.bold),
+                    )),
+                Spacer(),
+                TextButton(
+                    onPressed: () => print('hello world'),
+                    child: Text(
+                      'CANCEL',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    )),
+              ],
+            ),
+
             // Container(
             //   //TODO: Make height to change according to items in the list
             //   height: size.height * 0.1,
