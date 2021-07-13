@@ -7,6 +7,8 @@ import 'package:diaspo_care/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../routes.dart';
+
 class BeneficiariesScreen extends StatefulWidget {
   @override
   _BeneficiariesScreenState createState() => _BeneficiariesScreenState();
@@ -24,198 +26,84 @@ class _BeneficiariesScreenState extends State<BeneficiariesScreen> {
     transactionService.loadSupporterTransactions();
   }
 
-  int tab = 1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () =>
+              Navigator.pushNamed(context, RouteConfig.addBeneficiary),
+          child: Icon(Icons.add),
+        ),
         body: Column(
           children: [
             CustomAppBar(
               goBack: true,
-              title: tab == 1 ? 'Beneficiaries' : 'Transactions',
-              noIcon: true,
+              title: 'Beneficiaries',
+              noIcon: false,
             ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Expanded(
-                        child:
-                            tab == 1 ? BeneficiariesTab() : TransactionsTab()),
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      decoration: BoxDecoration(
-                          border: Border(
-                        top: BorderSide(width: 1, color: Colors.black12),
-                      )),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                tab = 1;
-                              });
-                            },
-                            child: Card(
-                              color: tab == 1
-                                  ? Colors.blue.withOpacity(0.9)
-                                  : Colors.white,
-                              child: Column(
+                child: Selector<BeneficiaryService, bool>(
+                  selector: (context, beneficaryService) =>
+                      beneficaryService.isLoadingBeneficiariesList,
+                  builder: (context, isLoading, _) {
+                    return CircularMaterialSpinner(
+                      loading: beneficiaryService.isLoadingBeneficiariesList,
+                      isBtn: false,
+                      color: Colors.blue,
+                      child: ListView.builder(
+                          itemCount: beneficiaryService.beneficiaries.length,
+                          itemBuilder: (context, index) {
+                            Beneficiary beneficiary =
+                                beneficiaryService.beneficiaries[index];
+                            return Container(
+                              margin: EdgeInsets.only(bottom: 5),
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                      width: 1, color: Colors.black12),
+                                ),
+                              ),
+                              child: Row(
                                 children: [
-                                  SizedBox(height: 10),
                                   Icon(
-                                    Icons.people_alt_outlined,
-                                    color:
-                                        tab == 1 ? Colors.white : Colors.black,
+                                    Icons.account_circle_outlined,
+                                    color: Colors.blue,
+                                    size: 35,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Beneficiaries',
-                                      style: TextStyle(
-                                        color: tab == 1
-                                            ? Colors.white
-                                            : Colors.black,
+                                  SizedBox(width: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${beneficiary?.user?.fullName ?? ''}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600),
                                       ),
-                                    ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                          "${beneficiary?.user?.fullName ?? ''}"),
+                                    ],
                                   ),
+                                  Spacer(),
+                                  Text(
+                                      '${beneficiary?.profile?.relation ?? ''}'),
                                 ],
                               ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                tab = 2;
-                              });
-                            },
-                            child: Card(
-                              color: tab == 2
-                                  ? Colors.blue.withOpacity(0.9)
-                                  : Colors.white,
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 10),
-                                  Icon(
-                                    Icons.credit_card,
-                                    color:
-                                        tab == 2 ? Colors.white : Colors.black,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Transactions',
-                                      style: TextStyle(
-                                        color: tab == 2
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                            );
+                          }),
+                    );
+                  },
                 ),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class BeneficiariesTab extends StatelessWidget {
-  const BeneficiariesTab({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: Colors.blue,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                    flex: 2,
-                    child: Text(
-                      'Beneficiaries',
-                      style: TextStyle(color: Colors.white),
-                    )),
-                Expanded(
-                    flex: 3,
-                    child: Text(
-                      'Supporter',
-                      style: TextStyle(color: Colors.white),
-                    )),
-                Expanded(
-                    flex: 2,
-                    child: Text(
-                      'Relation',
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(height: 20),
-        Expanded(
-          child: Selector<BeneficiaryService, bool>(
-            selector: (context, beneficaryService) =>
-                beneficaryService.isLoadingBeneficiariesList,
-            builder: (context, isLoading, _) {
-              return CircularMaterialSpinner(
-                loading: beneficiaryService.isLoadingBeneficiariesList,
-                isBtn: false,
-                color: Colors.blue,
-                child: ListView.builder(
-                    itemCount: beneficiaryService.beneficiaries.length,
-                    itemBuilder: (context, index) {
-                      Beneficiary beneficiary =
-                          beneficiaryService.beneficiaries[index];
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 5),
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(width: 1, color: Colors.black12),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 2,
-                                child: Text(
-                                    "${beneficiary?.user?.fullName ?? ''}")),
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                    '${beneficiary?.profile?.supporter ?? ''}')),
-                            Expanded(
-                                flex: 2,
-                                child: Text(
-                                    '${beneficiary?.profile?.relation ?? ''}')),
-                          ],
-                        ),
-                      );
-                    }),
-              );
-            },
-          ),
-        ),
-      ],
     );
   }
 }

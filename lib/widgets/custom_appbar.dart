@@ -43,6 +43,7 @@ class CustomAppBar extends StatelessWidget {
                 : Icon(
                     Icons.account_circle_outlined,
                     size: 30,
+                    color: Colors.blue,
                   )
           ],
         ));
